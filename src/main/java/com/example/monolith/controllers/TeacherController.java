@@ -16,7 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/teachers")
+@RequestMapping("/api/v1/teachers")
 @AllArgsConstructor
 public class TeacherController {
 

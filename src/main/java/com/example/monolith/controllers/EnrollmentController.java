@@ -18,7 +18,7 @@ import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
-@RequestMapping("/enrollments")
+@RequestMapping("/api/v1/enrollments")
 @AllArgsConstructor
 public class EnrollmentController {
 
