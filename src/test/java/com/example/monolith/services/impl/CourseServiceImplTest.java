@@ -11,11 +11,12 @@ import com.example.monolith.repository.TeacherRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Matchers.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -54,7 +55,7 @@ class CourseServiceImplTest {
     @Test
     void get() throws ObjectNotFoundException {
         when(courseRepository.findById(1L)).thenReturn(Optional.ofNullable(course));
-        when(courseRepository.existsById(anyLong())).thenReturn(true);
+        when(courseRepository.existsById(any())).thenReturn(true);
         assertAll(
                 () -> assertEquals(courseService.get(1L).getName(), course.getName()),
                 () -> assertTrue(courseService.get(1L).getName().equals(course.getName())),
@@ -95,7 +96,7 @@ class CourseServiceImplTest {
 
     @Test
     void save(){
-        when(courseRepository.existsByName(anyString())).thenReturn(true);
+        when(courseRepository.existsByName(anyString())).thenReturn(false);
         assertAll(()->assertEquals(courseService.save(request).getName(),course.getName()),
                 ()->assertEquals(courseService.save(request).getDuration(),30),
                 ()->assertNotNull(courseService.save(request).getName()),

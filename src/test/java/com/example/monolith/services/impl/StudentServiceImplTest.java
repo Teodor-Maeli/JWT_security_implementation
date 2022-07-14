@@ -10,11 +10,13 @@ import com.example.monolith.repository.StudentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
+
 import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Matchers.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -22,6 +24,7 @@ class StudentServiceImplTest {
 
     StudentRepository studentRepository;
     CourseRepository courseRepository;
+
     StudentMapperImpl studentMapper = new StudentMapperImpl();
     StudentServiceImpl studentService;
     Student student;
@@ -35,6 +38,7 @@ class StudentServiceImplTest {
 
         request = StudentRequest.builder()
                 .name("Ivan")
+                .password("pass")
                 .age(20)
                 .build();
 
@@ -75,7 +79,7 @@ class StudentServiceImplTest {
 
     @Test
     void save() throws ObjectAlreadyExistException {
-        when(studentRepository.existsByAgeAndName(anyInt(),anyString())).thenReturn(true);
+        when(studentRepository.existsByAgeAndName(anyInt(),anyString())).thenReturn(false);
         assertAll(()->assertEquals(studentService.save(request).getName(),student.getName()),
                 ()->assertEquals(studentService.save(request).getAge(),20),
                 ()->assertNotNull(studentService.save(request).getName()),
@@ -85,7 +89,7 @@ class StudentServiceImplTest {
 
     @Test
     void saveThrows(){
-        when(studentRepository.existsByAgeAndName(anyInt(),anyString())).thenReturn(false);
+        when(studentRepository.existsByAgeAndName(anyInt(),anyString())).thenReturn(true);
         assertThrows(ObjectAlreadyExistException.class,()->studentService.save(request));
     }
 

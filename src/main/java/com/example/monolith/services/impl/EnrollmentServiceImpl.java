@@ -143,8 +143,8 @@ public class EnrollmentServiceImpl implements EnrollmentService {
                     .average()
                     .orElse(0.0);
 
-                grouped.putIfAbsent(enrollments.get(0).getCourse().getName(), new TreeMap<>());
-                grouped.get(enrollments.get(0).getCourse().getName()).put(enrollments.get(0).getStudent().getName(),averages);
+            grouped.putIfAbsent(enrollments.get(0).getCourse().getName(), new TreeMap<>());
+            grouped.get(enrollments.get(0).getCourse().getName()).put(enrollments.get(0).getStudent().getName(), averages);
 
             enrollments.remove(0);
         }
@@ -153,7 +153,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
 
     @Override
-    public List<Enrollment> getAllFiltered(){
+    public List<Enrollment> getAllFiltered() {
         return enrollmentRepository.findAll()
                 .stream()
                 .filter(e -> e.getCourse() != null && !e.getGrades().isEmpty() && e.getStudent() != null)

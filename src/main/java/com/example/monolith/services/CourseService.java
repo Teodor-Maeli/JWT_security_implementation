@@ -18,9 +18,7 @@ public interface CourseService {
 
     CourseResponse delete(Long id) throws ObjectNotFoundException;
 
-    CourseResponse assignTeacher(Long courseId,Long teacherId) throws ObjectNotFoundException;
-
-
+    CourseResponse assignTeacher(Long courseId, Long teacherId) throws ObjectNotFoundException;
 
 
 }

@@ -14,7 +14,7 @@ import com.example.monolith.repository.EnrollmentRepository;
 import com.example.monolith.repository.StudentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Matchers;
+
 
 
 import java.util.ArrayList;
@@ -24,7 +24,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Matchers.anyLong;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -96,7 +98,7 @@ class EnrollmentServiceImplTest {
     @Test
     void addGrade() throws StudentNotAssignedException, InvalidGradeException {
         when(enrollmentRepository.findByCourseIdAndStudentId(1L, 1L)).thenReturn(Optional.ofNullable(enrollment));
-        when(enrollmentRepository.save(Matchers.any(Enrollment.class))).thenReturn(enrollment);
+        when(enrollmentRepository.save(any(Enrollment.class))).thenReturn(enrollment);
         String student = enrollmentService.addGrade(1L, 1L, 4).getStudents().getName();
         assertAll(
                 () -> assertEquals(enrollmentService.addGrade(1L, 1L, 4), enrollmentMapper.enrollmentEntityToEnrollmentResponse(enrollment)),
@@ -112,7 +114,7 @@ class EnrollmentServiceImplTest {
         when(courseRepository.existsById(anyLong())).thenReturn(true);
         when(studentRepository.findById(anyLong())).thenReturn(Optional.ofNullable(student));
         when(courseRepository.findById(anyLong())).thenReturn(Optional.ofNullable(course));
-        when(enrollmentRepository.save(Matchers.any(Enrollment.class))).thenReturn(enrollment);
+        when(enrollmentRepository.save(any(Enrollment.class))).thenReturn(enrollment);
         String courseName = enrollmentService.enroll(1L, 1L).getCourse().getName();
         assertAll(
                 () -> assertTrue(enrollmentService.enroll(1L, 1L).getCourse().getName().equals(course.getName())),

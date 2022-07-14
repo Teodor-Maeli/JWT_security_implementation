@@ -12,7 +12,6 @@ import lombok.Setter;
 @Builder
 public class CourseResponse {
 
-
     public Long id;
     public String name;
     public int duration;

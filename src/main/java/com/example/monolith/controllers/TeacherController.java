@@ -10,18 +10,20 @@ import com.example.monolith.exceptions.ObjectNotFoundException;
 import com.example.monolith.services.impl.TeacherServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/teachers")
+@RequestMapping("/teachers")
 @AllArgsConstructor
 public class TeacherController {
 
     TeacherServiceImpl teacherServiceImpl;
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "/{id}")
     public TeacherResponse getTeachers(@PathVariable Long id) {
         try {
@@ -31,6 +33,7 @@ public class TeacherController {
         }
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping
     public List<TeacherResponse> getAllTeachers() {
         try {
@@ -40,8 +43,9 @@ public class TeacherController {
         }
     }
 
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping(value = "/{id}")
-    public TeacherResponse deleteTeacher(@PathVariable Long id){
+    public TeacherResponse deleteTeacher(@PathVariable Long id) {
         try {
             return teacherServiceImpl.delete(id);
         } catch (ObjectNotFoundException e) {
@@ -49,8 +53,9 @@ public class TeacherController {
         }
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping
-    public TeacherResponse save(@RequestBody TeacherRequest teacher){
+    public TeacherResponse save(@RequestBody TeacherRequest teacher) {
         try {
             return teacherServiceImpl.save(teacher);
         } catch (ObjectAlreadyExistException e) {
@@ -58,17 +63,15 @@ public class TeacherController {
         }
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PatchMapping(value = "/{id}/{degree}")
-    public TeacherResponse update(@PathVariable Long id,@PathVariable String degree){
+    public TeacherResponse update(@PathVariable Long id, @PathVariable String degree) {
         try {
-            return teacherServiceImpl.updateDegree(id,degree);
+            return teacherServiceImpl.updateDegree(id, degree);
         } catch (ObjectNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, Constants.NOT_EXIST);
         }
     }
-
-
-
 
 
 }

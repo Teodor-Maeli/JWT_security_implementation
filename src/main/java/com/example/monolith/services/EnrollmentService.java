@@ -27,14 +27,13 @@ public interface EnrollmentService {
 
     double getStudentTotalAvg(Long id) throws EmptyDatabaseException, InvalidGradeException;
 
-   double  getCourseTotalAvg(Long id) throws EmptyDatabaseException, InvalidGradeException;
+    double getCourseTotalAvg(Long id) throws EmptyDatabaseException, InvalidGradeException;
 
     List<EnrollmentResponse> showAllStudentsAndTeachers();
 
     TreeMap<String, TreeMap<String, Double>> showAllGroupedByCourseAndAvg();
 
     List<Enrollment> getAllFiltered();
-
 
 
 }

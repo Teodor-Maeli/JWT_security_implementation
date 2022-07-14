@@ -4,7 +4,6 @@ import com.example.monolith.dto.courseDto.CourseRequest;
 import com.example.monolith.dto.courseDto.CourseResponse;
 import com.example.monolith.entity.Course;
 import com.example.monolith.mapper.CourseMapper;
-import lombok.Builder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +20,6 @@ public class CourseMapperImpl implements CourseMapper {
                 .duration(course.getDuration())
                 .build();
     }
-
 
 
     @Override

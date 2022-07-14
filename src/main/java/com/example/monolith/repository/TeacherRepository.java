@@ -1,11 +1,21 @@
 package com.example.monolith.repository;
 
+import com.example.monolith.entity.Student;
 import com.example.monolith.entity.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface TeacherRepository extends JpaRepository<Teacher,Long> {
+import java.util.Optional;
 
-    boolean existsByNameAndAndDegree(String name,String degree);
+@Repository
+public interface TeacherRepository extends JpaRepository<Teacher, Long> {
+
+    boolean existsByNameAndAndDegree(String name, String degree);
+
+    boolean existsByUserName(String username);
+
+    boolean existsByName(String name);
+
+    Optional<Teacher> findByUserName(String userName);
+
 }

@@ -15,6 +15,7 @@ public class TeacherResponse {
 
     private Long id;
     private String name;
+    private Integer age;
     private String degree;
 
 

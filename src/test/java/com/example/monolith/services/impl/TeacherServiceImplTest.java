@@ -16,8 +16,8 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -25,6 +25,7 @@ class TeacherServiceImplTest {
 
     TeacherRepository teacherRepository;
     TeacherServiceImpl teacherService;
+
     TeacherMapperImpl teacherMapper = new TeacherMapperImpl();
     TeacherRequest request;
     Teacher teacher;
@@ -37,11 +38,14 @@ class TeacherServiceImplTest {
         request = TeacherRequest.builder()
                 .name("Christian")
                 .degree("Professor")
+                .password("pass")
+                .age(30)
                 .build();
 
         teacher = Teacher.builder()
                 .degree("Professor")
                 .name("Christian")
+                .age(30)
                 .id(1L)
                 .build();
     }
@@ -81,7 +85,7 @@ class TeacherServiceImplTest {
 
     @Test
     void save() {
-        when(teacherRepository.existsByNameAndAndDegree(anyString(), anyString())).thenReturn(true);
+        when(teacherRepository.existsByNameAndAndDegree(anyString(), anyString())).thenReturn(false);
         assertAll(() -> assertEquals(teacherService.save(request).getName(), teacher.getName()),
                 () -> assertEquals(teacherService.save(request).getDegree(), "Professor"),
                 () -> assertNotNull(teacherService.save(request).getName()),
@@ -91,7 +95,7 @@ class TeacherServiceImplTest {
 
     @Test
     void saveThrows() {
-        when(teacherRepository.existsByNameAndAndDegree(anyString(), anyString())).thenReturn(false);
+        when(teacherRepository.existsByNameAndAndDegree(anyString(), anyString())).thenReturn(true);
         assertThrows(ObjectAlreadyExistException.class, () -> teacherService.save(request));
     }
 

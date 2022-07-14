@@ -9,7 +9,9 @@ public class Constants {
   public final static String EMPTY = "INTERNAL SERVER DATABASE IS EMPTY OR CORRUPTED";
   public final static String NON_ENROLL = "STUDENT/COURSE NON-EXISTENT OR NOT ASSIGNED";
   public final static String NO_GRADES = "STUDENT HAVE NO GRADES OR DATA IS CORRUPTED";
-  public final static String NO_RESOURCES = "THIS URL IS UNABLE TO ACCESS OR UNDER CONSTRUCTION";
+  public final static String NOT_REGISTERED = "USER NOT FOUND PLEASE REGISTER";
+  public final static String ALREADY_REGISTERED = "ALREADY IS REGISTERED ON THE SYSTEM";
+
 
 
 

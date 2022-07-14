@@ -21,6 +21,16 @@ public class Teacher implements Serializable {
 
     private String name;
     private String degree;
+    private int age;
+    private String userName;
+    private String password;
+
+    private boolean active;
+    private boolean isAccountNonExpired;
+    private boolean isAccountNonLocked;
+    private boolean isCredentialsNonExpired;
+    private boolean isEnabled;
+
 
 
     @Override

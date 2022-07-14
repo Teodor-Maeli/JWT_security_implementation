@@ -56,7 +56,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public TeacherResponse save(TeacherRequest request) throws ObjectAlreadyExistException {
         Teacher teacher = teacherMapper.teacherRequestToTeacherEntity(request);
-        if (teacherRepository.existsByNameAndAndDegree(request.getName(), request.getDegree())) {
+        if (!teacherRepository.existsByNameAndAndDegree(request.getName(), request.getDegree())) {
             teacherRepository.save(teacher);
             return teacherMapper.teacherEntityToTeacherResponse(teacher);
         } else {
@@ -66,12 +66,12 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public TeacherResponse updateDegree(Long id, String degree) throws ObjectNotFoundException {
-        if(teacherRepository.existsById(id)){
+        if (teacherRepository.existsById(id)) {
             Teacher teacher = teacherRepository.findById(id).get();
             teacher.setDegree(degree);
             teacherRepository.save(teacher);
             return teacherMapper.teacherEntityToTeacherResponse(teacher);
-        }else{
+        } else {
             throw new ObjectNotFoundException();
         }
 

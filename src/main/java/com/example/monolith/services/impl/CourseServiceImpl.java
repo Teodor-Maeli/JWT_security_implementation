@@ -27,10 +27,10 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseResponse get(Long courseId) throws ObjectNotFoundException {
-        if(courseRepository.existsById(courseId)){
+        if (courseRepository.existsById(courseId)) {
             Course response = courseRepository.findById(courseId).get();
             return courseMapper.courseEntityToCourseResponse(response);
-        }else{
+        } else {
             throw new ObjectNotFoundException();
         }
 
@@ -44,11 +44,11 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseResponse delete(Long id) throws ObjectNotFoundException {
-        if(courseRepository.existsById(id)){
+        if (courseRepository.existsById(id)) {
             Course course = courseRepository.findById(id).get();
             courseRepository.delete(course);
             return courseMapper.courseEntityToCourseResponse(course);
-        }else {
+        } else {
             throw new ObjectNotFoundException();
         }
 
@@ -58,7 +58,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseResponse save(CourseRequest request) throws ObjectAlreadyExistException {
         Course course = courseMapper.courseRequestToCourseEntity(request);
-        if (courseRepository.existsByName(request.getName())) {
+        if (!courseRepository.existsByName(request.getName())) {
             courseRepository.save(course);
             return courseMapper.courseEntityToCourseResponse(course);
         } else {

@@ -9,18 +9,22 @@ import com.example.monolith.exceptions.ObjectNotFoundException;
 import com.example.monolith.services.impl.CourseServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/courses")
+@RequestMapping("/courses")
 @AllArgsConstructor
 public class CourseController {
 
     CourseServiceImpl courseService;
 
+
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "/{id}")
     public CourseResponse getCourse(@PathVariable Long id) {
         try {
@@ -30,6 +34,7 @@ public class CourseController {
         }
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping
     public List<CourseResponse> getAll(){
         return courseService.getAll();
@@ -37,6 +42,7 @@ public class CourseController {
 
 
 
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping(value = "/{id}")
     public CourseResponse delete(@PathVariable Long id){
         try {
@@ -44,10 +50,10 @@ public class CourseController {
         } catch (ObjectNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,Constants.NOT_EXIST);
         }
-
     }
 
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping
     public CourseResponse save(@RequestBody CourseRequest course) {
         try {
@@ -56,6 +62,7 @@ public class CourseController {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,Constants.EXIST);
         }
     }
+
 
 
     @PatchMapping(value = "/{cId}/{tId}")

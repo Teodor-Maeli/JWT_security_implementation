@@ -1,6 +1,5 @@
 package com.example.monolith.mapper.Impl;
 
-import com.example.monolith.dto.enrollmentDto.EnrollmentRequest;
 import com.example.monolith.dto.enrollmentDto.EnrollmentResponse;
 import com.example.monolith.entity.Enrollment;
 import com.example.monolith.mapper.EnrollmentMapper;

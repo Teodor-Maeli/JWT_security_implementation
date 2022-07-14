@@ -11,12 +11,14 @@ import com.example.monolith.repository.CourseRepository;
 import com.example.monolith.repository.StudentRepository;
 import com.example.monolith.services.StudentService;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Component
 public class StudentServiceImpl implements StudentService {
 
     StudentRepository studentRepository;
@@ -26,10 +28,10 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentResponse get(Long id) throws ObjectNotFoundException {
-        if(studentRepository.existsById(id)){
+        if (studentRepository.existsById(id)) {
             Student student = studentRepository.findById(id).get();
             return studentMapper.studentEntityToStudentResponse(student);
-        }else{
+        } else {
             throw new ObjectNotFoundException();
         }
 
@@ -43,28 +45,24 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentResponse delete(Long id) throws ObjectNotFoundException {
-        if(studentRepository.existsById(id)){
+        if (studentRepository.existsById(id)) {
             Student student = studentRepository.findById(id).get();
             studentRepository.delete(student);
             return studentMapper.studentEntityToStudentResponse(student);
-        }else {
+        } else {
             throw new ObjectNotFoundException();
         }
-
-
-
     }
 
     @Override
     public StudentResponse save(StudentRequest request) throws ObjectAlreadyExistException {
         Student student = studentMapper.studentRequestToStudentEntity(request);
-        if(studentRepository.existsByAgeAndName(request.getAge(),request.getName())){
+        if (!studentRepository.existsByAgeAndName(request.getAge(), request.getName())) {
             studentRepository.save(student);
             return studentMapper.studentEntityToStudentResponse(student);
-        }else{
+        } else {
             throw new ObjectAlreadyExistException();
         }
     }
-
 
 }

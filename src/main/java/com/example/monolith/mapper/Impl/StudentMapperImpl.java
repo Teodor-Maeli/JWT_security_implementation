@@ -4,12 +4,16 @@ import com.example.monolith.dto.studentDto.StudentRequest;
 import com.example.monolith.dto.studentDto.StudentResponse;
 import com.example.monolith.entity.Student;
 import com.example.monolith.mapper.StudentMapper;
-import org.springframework.stereotype.Service;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+
 
 import java.util.List;
 
-@Service
-public class StudentMapperImpl implements StudentMapper {
+@Component
+@AllArgsConstructor
+public class StudentMapperImpl extends BaseMapper implements StudentMapper {
+
 
     @Override
     public StudentResponse studentEntityToStudentResponse(Student student) {
@@ -28,12 +32,24 @@ public class StudentMapperImpl implements StudentMapper {
     }
 
     @Override
-    public Student studentRequestToStudentEntity(StudentRequest student) {
+    public Student
+    studentRequestToStudentEntity(StudentRequest student) {
         return Student.builder()
                 .age(student.getAge())
                 .enrollments(student.getEnrollments())
-                .name(student.getName()).build();
+                .name(student.getName())
+                .userName(student.getUsername())
+                .password(passwordEncoder().encode(student.getPassword()))
+                .active(true)
+                .isAccountNonExpired(true)
+                .isAccountNonLocked(true)
+                .isCredentialsNonExpired(true)
+                .isEnabled(true)
+                .build();
     }
+
+
+
 
 
 }

@@ -4,12 +4,17 @@ import com.example.monolith.dto.teacherDto.TeacherRequest;
 import com.example.monolith.dto.teacherDto.TeacherResponse;
 import com.example.monolith.entity.Teacher;
 import com.example.monolith.mapper.TeacherMapper;
-import org.springframework.stereotype.Service;
+import lombok.AllArgsConstructor;
+
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Service
-public class TeacherMapperImpl implements TeacherMapper {
+@Component
+@AllArgsConstructor
+public class TeacherMapperImpl extends BaseMapper implements TeacherMapper {
+
+
 
     @Override
     public TeacherResponse teacherEntityToTeacherResponse(Teacher teacher) {
@@ -17,6 +22,7 @@ public class TeacherMapperImpl implements TeacherMapper {
                 .id(teacher.getId())
                 .degree(teacher.getDegree())
                 .name(teacher.getName())
+                .age(teacher.getAge())
                 .build();
     }
 
@@ -31,6 +37,14 @@ public class TeacherMapperImpl implements TeacherMapper {
         return Teacher.builder()
                 .name(teacher.getName())
                 .degree(teacher.getDegree())
+                .age(teacher.getAge())
+                .userName(teacher.getUsername())
+                .password(passwordEncoder().encode(teacher.getPassword()))
+                .active(true)
+                .isAccountNonExpired(true)
+                .isAccountNonLocked(true)
+                .isCredentialsNonExpired(true)
+                .isEnabled(true)
                 .build();
     }
 

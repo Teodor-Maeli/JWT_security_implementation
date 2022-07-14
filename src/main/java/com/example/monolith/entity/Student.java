@@ -6,7 +6,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,6 +22,14 @@ public class Student implements Serializable {
     private Long id;
     private String name;
     private int age;
+    private String userName;
+    private String password;
+
+    private boolean active;
+    private boolean isAccountNonExpired;
+    private boolean isAccountNonLocked;
+    private boolean isCredentialsNonExpired;
+    private boolean isEnabled;
 
     @OneToMany(mappedBy = "student")
     @JsonIgnore
