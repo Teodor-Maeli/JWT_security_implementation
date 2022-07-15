@@ -20,11 +20,13 @@ public class Student implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column
     private String name;
     private int age;
+    @Column(unique = true)
     private String userName;
     private String password;
-
+    private String roles;
     private boolean active;
     private boolean isAccountNonExpired;
     private boolean isAccountNonLocked;

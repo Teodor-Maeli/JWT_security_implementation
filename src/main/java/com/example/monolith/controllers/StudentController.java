@@ -21,7 +21,7 @@ public class StudentController {
 
     StudentServiceImpl studentService;
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN','ROLE_STUDENT')")
     @GetMapping(value = "/{id}")
     public StudentResponse getStudent(@PathVariable Long id) {
         try {

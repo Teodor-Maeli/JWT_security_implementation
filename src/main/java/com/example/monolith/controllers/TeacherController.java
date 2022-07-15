@@ -23,7 +23,7 @@ public class TeacherController {
 
     TeacherServiceImpl teacherServiceImpl;
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN','ROLE_TEACHER')")
     @GetMapping(value = "/{id}")
     public TeacherResponse getTeachers(@PathVariable Long id) {
         try {
@@ -33,7 +33,7 @@ public class TeacherController {
         }
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN','ROLE_TEACHER')")
     @GetMapping
     public List<TeacherResponse> getAllTeachers() {
         try {
@@ -43,7 +43,7 @@ public class TeacherController {
         }
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN')")
     @DeleteMapping(value = "/{id}")
     public TeacherResponse deleteTeacher(@PathVariable Long id) {
         try {
@@ -53,7 +53,7 @@ public class TeacherController {
         }
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN','ROLE_TEACHER')")
     @PostMapping
     public TeacherResponse save(@RequestBody TeacherRequest teacher) {
         try {

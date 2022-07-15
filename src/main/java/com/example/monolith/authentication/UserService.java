@@ -1,6 +1,6 @@
 package com.example.monolith.authentication;
 
-import com.example.monolith.authentication.userDto.AdminDto;
+import com.example.monolith.dto.userDto.AdminRequest;
 import com.example.monolith.constants.Constants;
 import com.example.monolith.dto.studentDto.StudentRequest;
 import com.example.monolith.dto.teacherDto.TeacherRequest;
@@ -8,7 +8,7 @@ import com.example.monolith.entity.AdminEntity;
 import com.example.monolith.entity.Student;
 import com.example.monolith.entity.Teacher;
 import com.example.monolith.exceptions.ObjectAlreadyExistException;
-import com.example.monolith.mapper.Impl.UserMapper;
+import com.example.monolith.mapper.Impl.AdminMapper;
 import com.example.monolith.mapper.Impl.StudentMapperImpl;
 import com.example.monolith.mapper.Impl.TeacherMapperImpl;
 import com.example.monolith.repository.StudentRepository;
@@ -21,6 +21,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+
+
 @Service
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
@@ -32,26 +34,26 @@ public class UserService implements UserDetailsService {
     private final StudentMapperImpl studentMapper;
 
     private final TeacherMapperImpl teacherMapper;
-    private final UserMapper userMapper;
+    private final AdminMapper userMapper;
 
 
     @Override
-    public MyUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public AuthUser loadUserByUsername(String username) throws UsernameNotFoundException {
 
         if (studentRepository.existsByUserName(username)) {
             Optional<Student> user = Optional.of(studentRepository.findByUserName(username).get());
-            return user.map(MyUserDetails::new).get();
+            return user.map(AuthUser::new).get();
         } else if (teacherRepository.existsByUserName(username)) {
             Optional<Teacher> user = Optional.of(teacherRepository.findByUserName(username).get());
-            return user.map(MyUserDetails::new).get();
+            return user.map(AuthUser::new).get();
         } else if (userRepository.existsByUserName(username)) {
             Optional<AdminEntity> user = Optional.of(userRepository.findByUserName(username).get());
-            return user.map(MyUserDetails::new).get();
+            return user.map(AuthUser::new).get();
         } else throw new UsernameNotFoundException(Constants.NOT_REGISTERED);
     }
 
 
-    public String createUser(AdminDto createUserRequest) throws ObjectAlreadyExistException {
+    public String createUser(AdminRequest createUserRequest) throws ObjectAlreadyExistException {
         AdminEntity user = userMapper.createRequestToEntity(createUserRequest);
         if (!userRepository.existsByUserName(user.getUserName())) {
             userRepository.save(user);

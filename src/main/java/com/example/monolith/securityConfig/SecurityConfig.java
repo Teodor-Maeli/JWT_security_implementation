@@ -1,8 +1,10 @@
 package com.example.monolith.securityConfig;
 
+import com.example.monolith.enums.Roles;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.BeanDefinitionDsl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -25,6 +27,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/","index","/css/**","/js/**").hasRole(Roles.ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -47,8 +50,7 @@ public class SecurityConfig {
 
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration auth)
-            throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration auth) throws Exception {
         return auth.getAuthenticationManager();
     }
 

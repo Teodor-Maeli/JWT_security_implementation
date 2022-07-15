@@ -2,6 +2,7 @@ package com.example.monolith.entity;
 
 import lombok.*;
 
+import javax.naming.Name;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -18,19 +19,18 @@ public class Teacher implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String name;
     private String degree;
     private int age;
+    @Column(unique = true)
     private String userName;
     private String password;
-
+    private String roles;
     private boolean active;
     private boolean isAccountNonExpired;
     private boolean isAccountNonLocked;
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
-
 
 
     @Override

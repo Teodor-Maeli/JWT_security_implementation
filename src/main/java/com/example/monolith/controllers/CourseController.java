@@ -34,7 +34,7 @@ public class CourseController {
         }
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN','ROLE_TEACHER')")
     @GetMapping
     public List<CourseResponse> getAll(){
         return courseService.getAll();
@@ -42,7 +42,7 @@ public class CourseController {
 
 
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN')")
     @DeleteMapping(value = "/{id}")
     public CourseResponse delete(@PathVariable Long id){
         try {
@@ -53,7 +53,7 @@ public class CourseController {
     }
 
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN','ROLE_TEACHER')")
     @PostMapping
     public CourseResponse save(@RequestBody CourseRequest course) {
         try {
@@ -65,7 +65,8 @@ public class CourseController {
 
 
 
-    @PatchMapping(value = "/{cId}/{tId}")
+    @PreAuthorize("hasRoles('ROLE_ADMIN')")
+    @PostMapping(value = "/assign/{cId}/{tId}")
     public CourseResponse assignTeacher(@PathVariable Long cId,@PathVariable Long tId){
         try {
             return courseService.assignTeacher(cId,tId);

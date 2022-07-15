@@ -25,21 +25,21 @@ public class tablesController {
 
     CourseServiceImpl courseService;
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN','ROLE_TEACHER')")
     @GetMapping("/show/students")
     public String studentsTable(Model model){
         List<StudentResponse> students = studentService.getAll();
         model.addAttribute("students",students);
-        return "students.html";
+        return "/students/students.html";
 
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN','ROLE_TEACHER')")
     @GetMapping("/show/teachers")
     public String teacherTable(Model model) throws EmptyDatabaseException {
         List<TeacherResponse> teachers = teacherService.getAll();
         model.addAttribute("teachers",teachers);
-        return "teachers.html";
+        return "/teachers/teachers.html";
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -47,7 +47,7 @@ public class tablesController {
     public String coursesTable(Model model) throws EmptyDatabaseException {
         List<CourseResponse> courses = courseService.getAll();
         model.addAttribute("courses",courses);
-        return "courses.html";
+        return "/courses/courses.html";
     }
 
 }

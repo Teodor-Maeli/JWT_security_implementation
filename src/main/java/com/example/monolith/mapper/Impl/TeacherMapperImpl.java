@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static com.example.monolith.enums.Roles.TEACHER;
+
 @Component
 @AllArgsConstructor
 public class TeacherMapperImpl extends BaseMapper implements TeacherMapper {
@@ -40,6 +42,7 @@ public class TeacherMapperImpl extends BaseMapper implements TeacherMapper {
                 .age(teacher.getAge())
                 .userName(teacher.getUsername())
                 .password(passwordEncoder().encode(teacher.getPassword()))
+                .roles(TEACHER.name())
                 .active(true)
                 .isAccountNonExpired(true)
                 .isAccountNonLocked(true)

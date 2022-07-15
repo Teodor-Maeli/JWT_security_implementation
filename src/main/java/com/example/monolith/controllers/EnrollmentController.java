@@ -25,7 +25,7 @@ public class EnrollmentController {
 
     EnrollmentServiceImpl enrollmentService;
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN','ROLE_TEACHER')")
     @GetMapping(value = "/{id}")
     public List<EnrollmentResponse> getEnrollment(@PathVariable Long id) {
         try {
@@ -37,14 +37,14 @@ public class EnrollmentController {
         }
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN','ROLE_TEACHER')")
     @GetMapping
     public List<EnrollmentResponse> getAll() {
         return enrollmentService.getAll();
     }
 
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN','ROLE_TEACHER')")
     @DeleteMapping(value = "/{cId}/{sId}")
     public EnrollmentResponse delete(@PathVariable Long cId, @PathVariable Long sId) {
         try {
@@ -55,7 +55,7 @@ public class EnrollmentController {
 
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN','ROLE_TEACHER')")
     @PostMapping(value = "/{cId}/{sId}")
     public EnrollmentResponse enroll(@PathVariable Long sId, @PathVariable Long cId) {
         try {
@@ -66,7 +66,7 @@ public class EnrollmentController {
     }
 
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN','ROLE_TEACHER')")
     @GetMapping(value = "/{cId}/{sId}")
     public EnrollmentResponse getByCourseAndStudent(@PathVariable Long cId, @PathVariable Long sId) {
         try {
@@ -77,7 +77,7 @@ public class EnrollmentController {
     }
 
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN','ROLE_TEACHER')")
     @PatchMapping(value = "/add/{cId}/{sId}/{grade}")
     public EnrollmentResponse addGrade(@PathVariable Long cId, @PathVariable Long sId, @PathVariable double grade) {
         try {
@@ -90,7 +90,7 @@ public class EnrollmentController {
 
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN','ROLE_TEACHER')")
     @GetMapping(value = "/average/{sId}")
     public double getStudentTotalAvg(@PathVariable Long sId) {
         try {
@@ -102,7 +102,7 @@ public class EnrollmentController {
         }
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN','ROLE_TEACHER')")
     @GetMapping(value = "/cavg/{cId}")
     public double getCourseAverage(@PathVariable Long cId) {
         try {
@@ -114,13 +114,13 @@ public class EnrollmentController {
         }
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN','ROLE_TEACHER')")
     @GetMapping(value = "/all")
     public List<EnrollmentResponse> showByCourseAndTeachers() {
         return enrollmentService.showAllStudentsAndTeachers();
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRoles('ROLE_ADMIN','ROLE_TEACHER')")
     @GetMapping(value = "/sorted")
     public TreeMap<String, TreeMap<String, Double>> sorted() {
         return enrollmentService.showAllGroupedByCourseAndAvg();

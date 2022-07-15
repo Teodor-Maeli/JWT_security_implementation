@@ -17,13 +17,17 @@ public class AdminEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private int age;
+    @Column(unique = true)
     private String userName;
     private String password;
+    private String role;
     private boolean active;
     private boolean isAccountNonExpired;
     private boolean isAccountNonLocked;
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
+
+
 
 
 

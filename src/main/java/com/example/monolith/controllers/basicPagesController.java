@@ -1,7 +1,6 @@
 package com.example.monolith.controllers;
 
 import com.example.monolith.authentication.UserService;
-import com.example.monolith.authentication.userDto.AdminDto;
 import com.example.monolith.constants.Constants;
 import com.example.monolith.dto.studentDto.StudentRequest;
 import com.example.monolith.dto.teacherDto.TeacherRequest;
@@ -33,7 +32,7 @@ public class basicPagesController {
     }
 
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/register/students")
     public String signupStudent(@ModelAttribute StudentRequest createStudentAccount) {
         if(createStudentAccount.getAge()!=null && createStudentAccount.getPassword()!=null){
@@ -43,10 +42,10 @@ public class basicPagesController {
                 throw new ResponseStatusException(HttpStatus.FOUND, createStudentAccount.getUsername()+ " "+Constants.ALREADY_REGISTERED);
             }
         }
-        return "studentsReg.html";
+        return "/students/studentsReg.html";
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/register/teachers")
     public String signupTeacher(@ModelAttribute TeacherRequest createTeacherAccount) {
         if(createTeacherAccount.getPassword()!=null && createTeacherAccount.getAge()!=null){
@@ -56,7 +55,7 @@ public class basicPagesController {
                 throw new ResponseStatusException(HttpStatus.FOUND, createTeacherAccount.getUsername()+ " "+Constants.ALREADY_REGISTERED);
             }
         }
-        return "/teachersReg.html";
+        return "/teachers/teachersReg.html";
     }
 
 
