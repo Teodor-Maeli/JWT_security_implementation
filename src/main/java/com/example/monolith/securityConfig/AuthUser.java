@@ -1,4 +1,4 @@
-package com.example.monolith.authentication;
+package com.example.monolith.securityConfig;
 
 import com.example.monolith.entity.AdminEntity;
 import com.example.monolith.entity.Student;

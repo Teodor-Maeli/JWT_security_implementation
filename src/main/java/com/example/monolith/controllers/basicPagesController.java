@@ -1,6 +1,6 @@
 package com.example.monolith.controllers;
 
-import com.example.monolith.authentication.UserService;
+import com.example.monolith.services.UserService;
 import com.example.monolith.constants.Constants;
 import com.example.monolith.dto.studentDto.StudentRequest;
 import com.example.monolith.dto.teacherDto.TeacherRequest;

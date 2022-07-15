@@ -1,4 +1,4 @@
-package com.example.monolith.authentication;
+package com.example.monolith.services;
 
 import com.example.monolith.dto.userDto.AdminRequest;
 import com.example.monolith.constants.Constants;
@@ -14,6 +14,7 @@ import com.example.monolith.mapper.Impl.TeacherMapperImpl;
 import com.example.monolith.repository.StudentRepository;
 import com.example.monolith.repository.TeacherRepository;
 import com.example.monolith.repository.UserRepository;
+import com.example.monolith.securityConfig.AuthUser;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
