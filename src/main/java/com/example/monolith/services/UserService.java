@@ -1,13 +1,13 @@
 package com.example.monolith.services;
 
 import com.example.monolith.dto.userDto.AdminRequest;
-import com.example.monolith.constants.Constants;
+import com.example.monolith.utility.constants.Constants;
 import com.example.monolith.dto.studentDto.StudentRequest;
 import com.example.monolith.dto.teacherDto.TeacherRequest;
 import com.example.monolith.entity.AdminEntity;
 import com.example.monolith.entity.Student;
 import com.example.monolith.entity.Teacher;
-import com.example.monolith.exceptions.ObjectAlreadyExistException;
+import com.example.monolith.utility.exceptions.ObjectAlreadyExistException;
 import com.example.monolith.mapper.Impl.AdminMapper;
 import com.example.monolith.mapper.Impl.StudentMapperImpl;
 import com.example.monolith.mapper.Impl.TeacherMapperImpl;

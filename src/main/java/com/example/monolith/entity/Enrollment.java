@@ -1,8 +1,6 @@
 package com.example.monolith.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;

@@ -2,7 +2,6 @@ package com.example.monolith.entity;
 
 import lombok.*;
 
-import javax.naming.Name;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;

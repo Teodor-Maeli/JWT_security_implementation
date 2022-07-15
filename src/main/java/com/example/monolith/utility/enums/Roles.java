@@ -1,4 +1,4 @@
-package com.example.monolith.enums;
+package com.example.monolith.utility.enums;
 
 public enum Roles {
 

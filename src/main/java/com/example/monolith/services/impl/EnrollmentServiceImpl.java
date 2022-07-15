@@ -2,10 +2,10 @@ package com.example.monolith.services.impl;
 
 import com.example.monolith.dto.enrollmentDto.EnrollmentResponse;
 import com.example.monolith.entity.Enrollment;
-import com.example.monolith.exceptions.EmptyDatabaseException;
-import com.example.monolith.exceptions.InvalidGradeException;
-import com.example.monolith.exceptions.ObjectNotFoundException;
-import com.example.monolith.exceptions.StudentNotAssignedException;
+import com.example.monolith.utility.exceptions.EmptyDatabaseException;
+import com.example.monolith.utility.exceptions.InvalidGradeException;
+import com.example.monolith.utility.exceptions.ObjectNotFoundException;
+import com.example.monolith.utility.exceptions.StudentNotAssignedException;
 import com.example.monolith.mapper.Impl.EnrollmentMapperImpl;
 import com.example.monolith.repository.CourseRepository;
 import com.example.monolith.repository.EnrollmentRepository;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.TreeMap;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Service

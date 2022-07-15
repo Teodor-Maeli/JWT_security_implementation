@@ -2,16 +2,14 @@ package com.example.monolith.controllers;
 
 import com.example.monolith.dto.studentDto.StudentRequest;
 import com.example.monolith.dto.studentDto.StudentResponse;
-import com.example.monolith.entity.Enrollment;
-import com.example.monolith.exceptions.ObjectAlreadyExistException;
-import com.example.monolith.exceptions.ObjectNotFoundException;
+import com.example.monolith.utility.exceptions.ObjectAlreadyExistException;
+import com.example.monolith.utility.exceptions.ObjectNotFoundException;
 import com.example.monolith.services.impl.StudentServiceImpl;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;

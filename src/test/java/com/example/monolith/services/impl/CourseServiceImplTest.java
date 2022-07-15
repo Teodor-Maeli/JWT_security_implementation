@@ -3,7 +3,7 @@ package com.example.monolith.services.impl;
 import com.example.monolith.dto.courseDto.CourseRequest;
 import com.example.monolith.entity.Course;
 import com.example.monolith.entity.Teacher;
-import com.example.monolith.exceptions.ObjectNotFoundException;
+import com.example.monolith.utility.exceptions.ObjectNotFoundException;
 import com.example.monolith.mapper.Impl.CourseMapperImpl;
 import com.example.monolith.repository.CourseRepository;
 import com.example.monolith.repository.TeacherRepository;

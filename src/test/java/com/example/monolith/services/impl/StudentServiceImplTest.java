@@ -2,8 +2,8 @@ package com.example.monolith.services.impl;
 
 import com.example.monolith.dto.studentDto.StudentRequest;
 import com.example.monolith.entity.Student;
-import com.example.monolith.exceptions.ObjectAlreadyExistException;
-import com.example.monolith.exceptions.ObjectNotFoundException;
+import com.example.monolith.utility.exceptions.ObjectAlreadyExistException;
+import com.example.monolith.utility.exceptions.ObjectNotFoundException;
 import com.example.monolith.mapper.Impl.StudentMapperImpl;
 import com.example.monolith.repository.CourseRepository;
 import com.example.monolith.repository.StudentRepository;

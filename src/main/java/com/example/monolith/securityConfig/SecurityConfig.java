@@ -1,10 +1,9 @@
 package com.example.monolith.securityConfig;
 
-import com.example.monolith.enums.Roles;
+import com.example.monolith.utility.enums.Roles;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.BeanDefinitionDsl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;

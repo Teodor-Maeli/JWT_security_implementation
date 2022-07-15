@@ -3,7 +3,7 @@ package com.example.monolith.controllers;
 import com.example.monolith.dto.courseDto.CourseResponse;
 import com.example.monolith.dto.studentDto.StudentResponse;
 import com.example.monolith.dto.teacherDto.TeacherResponse;
-import com.example.monolith.exceptions.EmptyDatabaseException;
+import com.example.monolith.utility.exceptions.EmptyDatabaseException;
 import com.example.monolith.services.impl.CourseServiceImpl;
 import com.example.monolith.services.impl.StudentServiceImpl;
 import com.example.monolith.services.impl.TeacherServiceImpl;

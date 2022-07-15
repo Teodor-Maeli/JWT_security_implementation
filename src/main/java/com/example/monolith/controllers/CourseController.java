@@ -1,11 +1,11 @@
 package com.example.monolith.controllers;
 
 
-import com.example.monolith.constants.Constants;
+import com.example.monolith.utility.constants.Constants;
 import com.example.monolith.dto.courseDto.CourseRequest;
 import com.example.monolith.dto.courseDto.CourseResponse;
-import com.example.monolith.exceptions.ObjectAlreadyExistException;
-import com.example.monolith.exceptions.ObjectNotFoundException;
+import com.example.monolith.utility.exceptions.ObjectAlreadyExistException;
+import com.example.monolith.utility.exceptions.ObjectNotFoundException;
 import com.example.monolith.services.impl.CourseServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

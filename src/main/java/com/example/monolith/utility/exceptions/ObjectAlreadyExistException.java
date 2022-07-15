@@ -1,4 +1,4 @@
-package com.example.monolith.exceptions;
+package com.example.monolith.utility.exceptions;
 
 public class ObjectAlreadyExistException extends Exception{
 }

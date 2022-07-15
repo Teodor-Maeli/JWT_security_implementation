@@ -1,6 +1,5 @@
 package com.example.monolith.repository;
 
-import com.example.monolith.entity.Student;
 import com.example.monolith.entity.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

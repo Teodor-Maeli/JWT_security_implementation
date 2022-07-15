@@ -1,4 +1,4 @@
-package com.example.monolith.constants;
+package com.example.monolith.utility.constants;
 
 public class Constants {
 

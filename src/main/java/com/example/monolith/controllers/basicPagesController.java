@@ -1,10 +1,10 @@
 package com.example.monolith.controllers;
 
 import com.example.monolith.services.UserService;
-import com.example.monolith.constants.Constants;
+import com.example.monolith.utility.constants.Constants;
 import com.example.monolith.dto.studentDto.StudentRequest;
 import com.example.monolith.dto.teacherDto.TeacherRequest;
-import com.example.monolith.exceptions.ObjectAlreadyExistException;
+import com.example.monolith.utility.exceptions.ObjectAlreadyExistException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;

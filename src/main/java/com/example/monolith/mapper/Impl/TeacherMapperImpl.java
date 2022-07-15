@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static com.example.monolith.enums.Roles.TEACHER;
+import static com.example.monolith.utility.enums.Roles.TEACHER;
 
 @Component
 @AllArgsConstructor
