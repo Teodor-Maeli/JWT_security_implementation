@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EnrollmentMapperImpl implements EnrollmentMapper {
+public class EnrollmentMapperImpl implements EnrollmentMapper<Enrollment> {
 
     @Override
     public EnrollmentResponse enrollmentEntityToEnrollmentResponse(Enrollment enrollment) {

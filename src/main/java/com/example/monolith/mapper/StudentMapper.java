@@ -6,12 +6,12 @@ import com.example.monolith.entity.Student;
 
 import java.util.List;
 
-public interface StudentMapper {
+public interface StudentMapper<T,T1> {
 
-    public StudentResponse studentEntityToStudentResponse(Student student);
+    public StudentResponse studentEntityToStudentResponse(T type);
 
-    public List<StudentResponse> AllEntityToAllResponse(List<Student> students);
+    public List<StudentResponse> AllEntityToAllResponse(List<T> type);
 
-    public Student studentRequestToStudentEntity(StudentRequest student);
+    public Student studentRequestToStudentEntity(T1 Type);
 
 }

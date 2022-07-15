@@ -8,10 +8,10 @@ import com.example.monolith.utility.exceptions.ObjectNotFoundException;
 
 import java.util.List;
 
-public interface TeacherService {
+public interface TeacherService<T> {
 
     TeacherResponse get(Long id) throws ObjectNotFoundException;
-    TeacherResponse save(TeacherRequest request) throws ObjectAlreadyExistException;
+    TeacherResponse save(T type) throws ObjectAlreadyExistException;
     TeacherResponse delete(Long id) throws ObjectNotFoundException;
     List<TeacherResponse> getAll() throws EmptyDatabaseException;
     TeacherResponse updateDegree(Long id,String degree) throws ObjectNotFoundException;

@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class TeacherServiceImpl implements TeacherService {
+public class TeacherServiceImpl implements TeacherService<TeacherRequest> {
 
     TeacherRepository teacherRepository;
     TeacherMapperImpl teacherMapper;

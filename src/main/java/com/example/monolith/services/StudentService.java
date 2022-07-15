@@ -7,11 +7,11 @@ import com.example.monolith.utility.exceptions.ObjectNotFoundException;
 
 import java.util.List;
 
-public interface StudentService {
+public interface StudentService<T> {
 
     StudentResponse delete(Long id) throws ObjectNotFoundException;
 
-    StudentResponse save(StudentRequest request) throws ObjectAlreadyExistException;
+    StudentResponse save(T type) throws ObjectAlreadyExistException;
 
     StudentResponse get(Long id) throws ObjectNotFoundException;
 

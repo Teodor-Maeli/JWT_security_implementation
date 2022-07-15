@@ -1,6 +1,7 @@
-package com.example.monolith.services;
+package com.example.monolith.services.impl;
 
 import com.example.monolith.dto.userDto.AdminRequest;
+import com.example.monolith.services.UserService;
 import com.example.monolith.utility.constants.Constants;
 import com.example.monolith.dto.studentDto.StudentRequest;
 import com.example.monolith.dto.teacherDto.TeacherRequest;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class UserService implements UserDetailsService {
+public class UserServiceImpl implements UserDetailsService, UserService<AdminRequest,StudentRequest,TeacherRequest> {
 
     private final StudentRepository studentRepository;
     private final TeacherRepository teacherRepository;

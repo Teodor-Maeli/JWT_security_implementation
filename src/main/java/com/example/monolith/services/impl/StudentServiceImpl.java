@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @Component
-public class StudentServiceImpl implements StudentService {
+public class StudentServiceImpl implements StudentService<StudentRequest> {
 
     StudentRepository studentRepository;
     CourseRepository courseRepository;

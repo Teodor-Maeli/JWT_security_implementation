@@ -17,7 +17,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class CourseServiceImpl implements CourseService {
+public class CourseServiceImpl implements CourseService<CourseRequest> {
 
     CourseRepository courseRepository;
 

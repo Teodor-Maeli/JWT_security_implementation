@@ -14,7 +14,7 @@ import static com.example.monolith.utility.enums.Roles.STUDENT;
 
 @Component
 @AllArgsConstructor
-public class StudentMapperImpl extends BaseMapper implements StudentMapper {
+public class StudentMapperImpl extends BaseMapper implements StudentMapper<Student,StudentRequest> {
 
 
     @Override

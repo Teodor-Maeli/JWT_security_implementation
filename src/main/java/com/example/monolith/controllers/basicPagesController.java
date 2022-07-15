@@ -1,6 +1,6 @@
 package com.example.monolith.controllers;
 
-import com.example.monolith.services.UserService;
+import com.example.monolith.services.impl.UserServiceImpl;
 import com.example.monolith.utility.constants.Constants;
 import com.example.monolith.dto.studentDto.StudentRequest;
 import com.example.monolith.dto.teacherDto.TeacherRequest;
@@ -18,7 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 @AllArgsConstructor
 public class basicPagesController {
 
-    UserService userService;
+    UserServiceImpl userService;
 
     @RequestMapping(value = "/login")
     public String login(){

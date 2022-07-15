@@ -4,10 +4,10 @@ import com.example.monolith.dto.teacherDto.TeacherRequest;
 import com.example.monolith.dto.teacherDto.TeacherResponse;
 import com.example.monolith.entity.Teacher;
 
-public interface TeacherMapper {
+public interface TeacherMapper<T,T1> {
 
-    public TeacherResponse teacherEntityToTeacherResponse(Teacher teacher);
+    public TeacherResponse teacherEntityToTeacherResponse(T type);
 
-    public Teacher teacherRequestToTeacherEntity(TeacherRequest teacher);
+    public Teacher teacherRequestToTeacherEntity(T1 type);
 
 }

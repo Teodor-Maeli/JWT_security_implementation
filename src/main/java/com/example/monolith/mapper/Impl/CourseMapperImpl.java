@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CourseMapperImpl implements CourseMapper {
+public class CourseMapperImpl implements CourseMapper<Course,CourseRequest> {
 
     @Override
     public CourseResponse courseEntityToCourseResponse(Course course) {

@@ -5,11 +5,11 @@ import com.example.monolith.entity.Enrollment;
 
 import java.util.List;
 
-public interface EnrollmentMapper {
+public interface EnrollmentMapper<T> {
 
-    public EnrollmentResponse enrollmentEntityToEnrollmentResponse(Enrollment enrollment);
+    public EnrollmentResponse enrollmentEntityToEnrollmentResponse(T type);
 
-    public List<EnrollmentResponse> AllEnrollmentsToAllResponse(List<Enrollment> enrollments);
+    public List<EnrollmentResponse> AllEnrollmentsToAllResponse(List<T> type);
 
 
 

@@ -7,12 +7,12 @@ import com.example.monolith.utility.exceptions.ObjectNotFoundException;
 
 import java.util.List;
 
-public interface CourseService {
+public interface CourseService<T> {
 
 
     CourseResponse get(Long id) throws ObjectNotFoundException;
 
-    CourseResponse save(CourseRequest request) throws ObjectAlreadyExistException;
+    CourseResponse save(T type) throws ObjectAlreadyExistException;
 
     List<CourseResponse> getAll();
 
