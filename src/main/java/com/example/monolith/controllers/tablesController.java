@@ -7,8 +7,6 @@ import com.example.monolith.services.impl.CourseServiceImpl;
 import com.example.monolith.services.impl.StudentServiceImpl;
 import com.example.monolith.services.impl.TeacherServiceImpl;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
-
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

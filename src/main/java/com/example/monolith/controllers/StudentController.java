@@ -30,14 +30,14 @@ public class StudentController {
         return studentService.getAll();
     }
 
-    @SneakyThrows
+
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping(value = "/{id}")
     public StudentResponse delete(@PathVariable Long id) {
         return studentService.delete(id);
     }
 
-    @SneakyThrows
+
     @PreAuthorize("hasAnyRoles('ROLE_ADMIN','ROLE_TEACHER')")
     @PostMapping
     public StudentResponse save(@RequestBody StudentRequest student) {
