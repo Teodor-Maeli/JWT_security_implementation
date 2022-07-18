@@ -5,10 +5,10 @@ import com.example.monolith.dto.enrollmentDto.EnrollmentResponse;
 import com.example.monolith.entity.Course;
 import com.example.monolith.entity.Student;
 
-import com.example.monolith.utility.exceptions.EmptyDatabaseException;
-import com.example.monolith.utility.exceptions.InvalidGradeException;
-import com.example.monolith.utility.exceptions.ObjectNotFoundException;
-import com.example.monolith.utility.exceptions.StudentNotAssignedException;
+import com.example.monolith.utility.ResponseStatusException.EmptyDatabaseException;
+import com.example.monolith.utility.ResponseStatusException.InvalidGradeException;
+import com.example.monolith.utility.ResponseStatusException.ObjectNotFoundException;
+import com.example.monolith.utility.ResponseStatusException.StudentNotAssignedException;
 import com.example.monolith.services.impl.EnrollmentServiceImpl;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;

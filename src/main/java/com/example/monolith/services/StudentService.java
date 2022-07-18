@@ -1,9 +1,8 @@
 package com.example.monolith.services;
 
-import com.example.monolith.dto.studentDto.StudentRequest;
 import com.example.monolith.dto.studentDto.StudentResponse;
-import com.example.monolith.utility.exceptions.ObjectAlreadyExistException;
-import com.example.monolith.utility.exceptions.ObjectNotFoundException;
+import com.example.monolith.utility.ResponseStatusException.ObjectAlreadyExistException;
+import com.example.monolith.utility.ResponseStatusException.ObjectNotFoundException;
 
 import java.util.List;
 

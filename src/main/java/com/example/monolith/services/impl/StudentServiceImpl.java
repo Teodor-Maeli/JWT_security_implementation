@@ -4,8 +4,8 @@ package com.example.monolith.services.impl;
 import com.example.monolith.dto.studentDto.StudentRequest;
 import com.example.monolith.dto.studentDto.StudentResponse;
 import com.example.monolith.entity.Student;
-import com.example.monolith.utility.exceptions.ObjectAlreadyExistException;
-import com.example.monolith.utility.exceptions.ObjectNotFoundException;
+import com.example.monolith.utility.ResponseStatusException.ObjectAlreadyExistException;
+import com.example.monolith.utility.ResponseStatusException.ObjectNotFoundException;
 import com.example.monolith.mapper.Impl.StudentMapperImpl;
 import com.example.monolith.repository.CourseRepository;
 import com.example.monolith.repository.StudentRepository;
@@ -15,6 +15,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.example.monolith.utility.enums.ExceptionMessage.EXIST;
+import static com.example.monolith.utility.enums.ExceptionMessage.NOT_EXIST;
 
 @Service
 @AllArgsConstructor
@@ -32,7 +35,7 @@ public class StudentServiceImpl implements StudentService<StudentRequest> {
             Student student = studentRepository.findById(id).get();
             return studentMapper.studentEntityToStudentResponse(student);
         } else {
-            throw new ObjectNotFoundException();
+            throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
         }
 
     }
@@ -50,7 +53,7 @@ public class StudentServiceImpl implements StudentService<StudentRequest> {
             studentRepository.delete(student);
             return studentMapper.studentEntityToStudentResponse(student);
         } else {
-            throw new ObjectNotFoundException();
+            throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
         }
     }
 
@@ -61,7 +64,7 @@ public class StudentServiceImpl implements StudentService<StudentRequest> {
             studentRepository.save(student);
             return studentMapper.studentEntityToStudentResponse(student);
         } else {
-            throw new ObjectAlreadyExistException();
+            throw new ObjectAlreadyExistException(EXIST.getExceptionMessage());
         }
     }
 

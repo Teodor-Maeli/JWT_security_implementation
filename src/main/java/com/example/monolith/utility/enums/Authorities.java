@@ -1,6 +1,6 @@
 package com.example.monolith.utility.enums;
 
-public enum Roles {
+public enum Authorities {
 
     ADMIN,
     STUDENT,

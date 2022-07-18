@@ -2,10 +2,10 @@ package com.example.monolith.services.impl;
 
 import com.example.monolith.dto.enrollmentDto.EnrollmentResponse;
 import com.example.monolith.entity.Enrollment;
-import com.example.monolith.utility.exceptions.EmptyDatabaseException;
-import com.example.monolith.utility.exceptions.InvalidGradeException;
-import com.example.monolith.utility.exceptions.ObjectNotFoundException;
-import com.example.monolith.utility.exceptions.StudentNotAssignedException;
+import com.example.monolith.utility.ResponseStatusException.EmptyDatabaseException;
+import com.example.monolith.utility.ResponseStatusException.InvalidGradeException;
+import com.example.monolith.utility.ResponseStatusException.ObjectNotFoundException;
+import com.example.monolith.utility.ResponseStatusException.StudentNotAssignedException;
 import com.example.monolith.mapper.Impl.EnrollmentMapperImpl;
 import com.example.monolith.repository.CourseRepository;
 import com.example.monolith.repository.EnrollmentRepository;
@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+import static com.example.monolith.utility.enums.ExceptionMessage.*;
+
 @Service
 @AllArgsConstructor
 public class EnrollmentServiceImpl implements EnrollmentService {
@@ -29,11 +31,12 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
     @Override
     public List<EnrollmentResponse> getAllByStudent(Long studentId) throws EmptyDatabaseException, StudentNotAssignedException {
-        List<Enrollment> enrollment = enrollmentRepository.findAllByStudentId(studentId).orElseThrow(EmptyDatabaseException::new);
+        List<Enrollment> enrollment = enrollmentRepository.findAllByStudentId(studentId).orElseThrow(
+                ()->new EmptyDatabaseException(EMPTY.getExceptionMessage()));
         if (!enrollment.isEmpty()) {
             return enrollmentMapper.AllEnrollmentsToAllResponse(enrollment);
         } else {
-            throw new StudentNotAssignedException();
+            throw new StudentNotAssignedException(NOT_ASSIGNED.getExceptionMessage());
         }
     }
 
@@ -45,18 +48,20 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
     @Override
     public EnrollmentResponse delete(Long cId, Long sId) throws StudentNotAssignedException {
-        Enrollment enrollment = enrollmentRepository.findByCourseIdAndStudentId(cId, sId).orElseThrow(StudentNotAssignedException::new);
+        Enrollment enrollment = enrollmentRepository.findByCourseIdAndStudentId(cId, sId).orElseThrow(
+                ()->new StudentNotAssignedException(NOT_ASSIGNED.getExceptionMessage()));
         enrollmentRepository.delete(enrollment);
         return enrollmentMapper.enrollmentEntityToEnrollmentResponse(enrollment);
     }
 
     @Override
     public EnrollmentResponse addGrade(Long cId, Long sId, double grade) throws InvalidGradeException, StudentNotAssignedException {
-        Enrollment enrollment = enrollmentRepository.findByCourseIdAndStudentId(cId, sId).orElseThrow(StudentNotAssignedException::new);
+        Enrollment enrollment = enrollmentRepository.findByCourseIdAndStudentId(cId, sId).orElseThrow(
+                ()->new StudentNotAssignedException(NOT_ASSIGNED.getExceptionMessage()));
         if (grade >= 2 && grade <= 6) {
             enrollment.getGrades().add(grade);
         } else {
-            throw new InvalidGradeException();
+            throw new InvalidGradeException(INVALID_GRADE.getExceptionMessage());
         }
         return enrollmentMapper.enrollmentEntityToEnrollmentResponse(enrollmentRepository.save(enrollment));
 
@@ -73,21 +78,23 @@ public class EnrollmentServiceImpl implements EnrollmentService {
                     .build());
             return enrollmentMapper.enrollmentEntityToEnrollmentResponse(enrollmentRepository.save(enrollment));
         } else {
-            throw new ObjectNotFoundException();
+            throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
         }
     }
 
 
     @Override
     public EnrollmentResponse getByCourseAndStudent(Long cId, Long sId) throws StudentNotAssignedException {
-        Enrollment enrollment = enrollmentRepository.findByCourseIdAndStudentId(cId, sId).orElseThrow(StudentNotAssignedException::new);
+        Enrollment enrollment = enrollmentRepository.findByCourseIdAndStudentId(cId, sId).orElseThrow(
+                ()->new StudentNotAssignedException(NOT_ASSIGNED.getExceptionMessage()));
         return enrollmentMapper.enrollmentEntityToEnrollmentResponse(enrollment);
 
     }
 
     @Override
     public double getStudentTotalAvg(Long id) throws EmptyDatabaseException, InvalidGradeException {
-        List<Enrollment> enrollment = enrollmentRepository.findAllByStudentId(id).orElseThrow(EmptyDatabaseException::new);
+        List<Enrollment> enrollment = enrollmentRepository.findAllByStudentId(id).orElseThrow(
+                ()->new EmptyDatabaseException(EMPTY.getExceptionMessage()));
         return enrollment
                 .stream()
                 .filter(s -> !s.getGrades().isEmpty())
@@ -96,13 +103,14 @@ public class EnrollmentServiceImpl implements EnrollmentService {
                         .mapToDouble(num -> num).average()
                         .orElse(0.0))
                 .average()
-                .orElseThrow(InvalidGradeException::new);
+                .orElseThrow(()->new InvalidGradeException(NO_GRADES.getExceptionMessage()));
 
     }
 
     @Override
     public double getCourseTotalAvg(Long id) throws EmptyDatabaseException, InvalidGradeException {
-        List<Enrollment> enrollment = enrollmentRepository.findAllByCourseId(id).orElseThrow(EmptyDatabaseException::new);
+        List<Enrollment> enrollment = enrollmentRepository.findAllByCourseId(id).orElseThrow(
+                ()->new EmptyDatabaseException(EMPTY.getExceptionMessage()));
         return enrollment
                 .stream()
                 .filter(s -> !s.getGrades().isEmpty())
@@ -111,7 +119,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
                         .mapToDouble(num -> num).average()
                         .orElse(0.0))
                 .average()
-                .orElseThrow(InvalidGradeException::new);
+                .orElseThrow(()->new InvalidGradeException(NON_ENROLL.getExceptionMessage()));
 
     }
 

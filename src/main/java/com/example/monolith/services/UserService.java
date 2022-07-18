@@ -1,6 +1,6 @@
 package com.example.monolith.services;
 
-import com.example.monolith.utility.exceptions.ObjectAlreadyExistException;
+import com.example.monolith.utility.ResponseStatusException.ObjectAlreadyExistException;
 
 public interface UserService<T,T1,T2> {
     String createUser(T type) throws ObjectAlreadyExistException;

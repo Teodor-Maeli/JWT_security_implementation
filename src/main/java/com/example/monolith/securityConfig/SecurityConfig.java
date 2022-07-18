@@ -1,6 +1,5 @@
 package com.example.monolith.securityConfig;
 
-import com.example.monolith.utility.enums.Roles;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 @EnableWebMvc
 @AllArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+
 public class SecurityConfig {
 
 
@@ -26,12 +26,12 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","index","/css/**","/js/**").hasRole(Roles.ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
                 .defaultSuccessUrl("/index")
+
                 .and()
                 .rememberMe().tokenValiditySeconds((int) TimeUnit.HOURS.toHours(1)).key("SecuredKey")
                 .and()
@@ -44,7 +44,7 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/favicon.ico", "/resources/**", "/**/*.css", "/**/*.js");
+        return (web) -> web.ignoring().antMatchers( "/resources/**", "/**/*.css", "/**/*.js");
     }
 
 

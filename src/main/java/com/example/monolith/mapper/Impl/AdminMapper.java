@@ -5,7 +5,7 @@ import com.example.monolith.dto.userDto.AdminRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static com.example.monolith.utility.enums.Roles.ADMIN;
+import static com.example.monolith.utility.enums.Authorities.ADMIN;
 
 @AllArgsConstructor
 @Component

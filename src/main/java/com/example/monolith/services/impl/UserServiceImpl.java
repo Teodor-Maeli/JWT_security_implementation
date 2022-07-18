@@ -2,13 +2,13 @@ package com.example.monolith.services.impl;
 
 import com.example.monolith.dto.userDto.AdminRequest;
 import com.example.monolith.services.UserService;
-import com.example.monolith.utility.constants.Constants;
 import com.example.monolith.dto.studentDto.StudentRequest;
 import com.example.monolith.dto.teacherDto.TeacherRequest;
 import com.example.monolith.entity.AdminEntity;
 import com.example.monolith.entity.Student;
 import com.example.monolith.entity.Teacher;
-import com.example.monolith.utility.exceptions.ObjectAlreadyExistException;
+import com.example.monolith.utility.enums.ExceptionMessage;
+import com.example.monolith.utility.ResponseStatusException.ObjectAlreadyExistException;
 import com.example.monolith.mapper.Impl.AdminMapper;
 import com.example.monolith.mapper.Impl.StudentMapperImpl;
 import com.example.monolith.mapper.Impl.TeacherMapperImpl;
@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static com.example.monolith.utility.enums.ExceptionMessage.ALREADY_REGISTERED;
 
 
 @Service
@@ -51,7 +52,9 @@ public class UserServiceImpl implements UserDetailsService, UserService<AdminReq
         } else if (userRepository.existsByUserName(username)) {
             Optional<AdminEntity> user = Optional.of(userRepository.findByUserName(username).get());
             return user.map(AuthUser::new).get();
-        } else throw new UsernameNotFoundException(Constants.NOT_REGISTERED);
+        } else {
+            throw new UsernameNotFoundException(ExceptionMessage.NOT_REGISTERED.getExceptionMessage());
+        }
     }
 
 
@@ -61,7 +64,7 @@ public class UserServiceImpl implements UserDetailsService, UserService<AdminReq
             userRepository.save(user);
             return user.getUserName();
         } else {
-            throw new ObjectAlreadyExistException();
+            throw new ObjectAlreadyExistException(ALREADY_REGISTERED.getExceptionMessage());
         }
     }
 
@@ -71,7 +74,7 @@ public class UserServiceImpl implements UserDetailsService, UserService<AdminReq
             studentRepository.save(user);
             return user.getUserName();
         } else {
-            throw new ObjectAlreadyExistException();
+            throw new ObjectAlreadyExistException(ALREADY_REGISTERED.getExceptionMessage());
         }
 
     }
@@ -83,7 +86,7 @@ public class UserServiceImpl implements UserDetailsService, UserService<AdminReq
             teacherRepository.save(user);
             return user.getUserName();
         } else {
-            throw new ObjectAlreadyExistException();
+            throw new ObjectAlreadyExistException(ALREADY_REGISTERED.getExceptionMessage());
         }
 
     }

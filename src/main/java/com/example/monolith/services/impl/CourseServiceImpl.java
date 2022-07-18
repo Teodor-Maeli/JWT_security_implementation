@@ -4,8 +4,9 @@ import com.example.monolith.dto.courseDto.CourseRequest;
 import com.example.monolith.dto.courseDto.CourseResponse;
 import com.example.monolith.entity.Course;
 import com.example.monolith.entity.Teacher;
-import com.example.monolith.utility.exceptions.ObjectAlreadyExistException;
-import com.example.monolith.utility.exceptions.ObjectNotFoundException;
+import com.example.monolith.utility.ResponseStatusException.EmptyDatabaseException;
+import com.example.monolith.utility.ResponseStatusException.ObjectAlreadyExistException;
+import com.example.monolith.utility.ResponseStatusException.ObjectNotFoundException;
 import com.example.monolith.mapper.Impl.CourseMapperImpl;
 import com.example.monolith.repository.CourseRepository;
 import com.example.monolith.repository.TeacherRepository;
@@ -14,6 +15,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.example.monolith.utility.enums.ExceptionMessage.*;
 
 @Service
 @AllArgsConstructor
@@ -31,15 +34,19 @@ public class CourseServiceImpl implements CourseService<CourseRequest> {
             Course response = courseRepository.findById(courseId).get();
             return courseMapper.courseEntityToCourseResponse(response);
         } else {
-            throw new ObjectNotFoundException();
+            throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
         }
 
     }
 
     @Override
-    public List<CourseResponse> getAll() {
+    public List<CourseResponse> getAll() throws EmptyDatabaseException {
         List<Course> responseList = courseRepository.findAll();
-        return courseMapper.allEntityToAllResponse(responseList);
+        if(!responseList.isEmpty()) {
+            return courseMapper.allEntityToAllResponse(responseList);
+        }else{
+            throw new EmptyDatabaseException(EMPTY.getExceptionMessage());
+        }
     }
 
     @Override
@@ -49,7 +56,7 @@ public class CourseServiceImpl implements CourseService<CourseRequest> {
             courseRepository.delete(course);
             return courseMapper.courseEntityToCourseResponse(course);
         } else {
-            throw new ObjectNotFoundException();
+            throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
         }
 
     }
@@ -62,14 +69,16 @@ public class CourseServiceImpl implements CourseService<CourseRequest> {
             courseRepository.save(course);
             return courseMapper.courseEntityToCourseResponse(course);
         } else {
-            throw new ObjectAlreadyExistException();
+            throw new ObjectAlreadyExistException(EXIST.getExceptionMessage());
         }
     }
 
     @Override
     public CourseResponse assignTeacher(Long courseId, Long teacherId) throws ObjectNotFoundException {
-        Course course = courseRepository.findById(courseId).orElseThrow(ObjectNotFoundException::new);
-        Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(ObjectNotFoundException::new);
+        Course course = courseRepository.findById(courseId).orElseThrow(
+                ()->new ObjectNotFoundException(NOT_EXIST.getExceptionMessage()));
+        Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(
+                ()-> new ObjectNotFoundException(NOT_EXIST.getExceptionMessage()));
         course.setTeacher(teacher);
         courseRepository.save(course);
         return courseMapper.courseEntityToCourseResponse(course);

@@ -1,16 +1,12 @@
 package com.example.monolith.controllers;
 
-import com.example.monolith.utility.constants.Constants;
 import com.example.monolith.dto.studentDto.StudentRequest;
 import com.example.monolith.dto.studentDto.StudentResponse;
-import com.example.monolith.utility.exceptions.ObjectAlreadyExistException;
-import com.example.monolith.utility.exceptions.ObjectNotFoundException;
 import com.example.monolith.services.impl.StudentServiceImpl;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
+import lombok.SneakyThrows;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -21,41 +17,31 @@ public class StudentController {
 
     StudentServiceImpl studentService;
 
-    @PreAuthorize("hasRoles('ROLE_ADMIN','ROLE_STUDENT')")
+    @SneakyThrows
+    @PreAuthorize("hasAnyAuthority('ADMIN','STUDENT')")
     @GetMapping(value = "/{id}")
     public StudentResponse getStudent(@PathVariable Long id) {
-        try {
-            return studentService.get(id);
-        } catch (ObjectNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, Constants.NOT_EXIST);
-        }
+        return studentService.get(id);
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
     @GetMapping
     public List<StudentResponse> getAll() {
         return studentService.getAll();
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @SneakyThrows
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping(value = "/{id}")
     public StudentResponse delete(@PathVariable Long id) {
-        try {
-            return studentService.delete(id);
-        } catch (ObjectNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, Constants.NOT_EXIST);
-        }
-
+        return studentService.delete(id);
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @SneakyThrows
+    @PreAuthorize("hasAnyRoles('ROLE_ADMIN','ROLE_TEACHER')")
     @PostMapping
     public StudentResponse save(@RequestBody StudentRequest student) {
-        try {
-            return studentService.save(student);
-        } catch (ObjectAlreadyExistException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, Constants.EXIST);
-        }
+        return studentService.save(student);
     }
 
 }

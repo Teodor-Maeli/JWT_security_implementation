@@ -3,9 +3,9 @@ package com.example.monolith.services.impl;
 import com.example.monolith.dto.teacherDto.TeacherRequest;
 import com.example.monolith.dto.teacherDto.TeacherResponse;
 import com.example.monolith.entity.Teacher;
-import com.example.monolith.utility.exceptions.EmptyDatabaseException;
-import com.example.monolith.utility.exceptions.ObjectAlreadyExistException;
-import com.example.monolith.utility.exceptions.ObjectNotFoundException;
+import com.example.monolith.utility.ResponseStatusException.EmptyDatabaseException;
+import com.example.monolith.utility.ResponseStatusException.ObjectAlreadyExistException;
+import com.example.monolith.utility.ResponseStatusException.ObjectNotFoundException;
 import com.example.monolith.mapper.Impl.TeacherMapperImpl;
 import com.example.monolith.repository.TeacherRepository;
 import com.example.monolith.services.TeacherService;
@@ -13,6 +13,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.example.monolith.utility.enums.ExceptionMessage.*;
 
 @Service
 @AllArgsConstructor
@@ -27,7 +29,7 @@ public class TeacherServiceImpl implements TeacherService<TeacherRequest> {
             Teacher teacher = teacherRepository.findById(id).get();
             return teacherMapper.teacherEntityToTeacherResponse(teacher);
         } else {
-            throw new ObjectNotFoundException();
+            throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
         }
     }
 
@@ -37,7 +39,7 @@ public class TeacherServiceImpl implements TeacherService<TeacherRequest> {
         if (teachers.size() != 0) {
             return teacherMapper.AllEntityToAllResponse(teachers);
         } else {
-            throw new EmptyDatabaseException();
+            throw new EmptyDatabaseException(EMPTY.getExceptionMessage());
         }
     }
 
@@ -48,7 +50,7 @@ public class TeacherServiceImpl implements TeacherService<TeacherRequest> {
             teacherRepository.delete(teacher);
             return teacherMapper.teacherEntityToTeacherResponse(teacher);
         } else {
-            throw new ObjectNotFoundException();
+            throw new ObjectNotFoundException(NOT_ASSIGNED.getExceptionMessage());
         }
 
     }
@@ -60,7 +62,7 @@ public class TeacherServiceImpl implements TeacherService<TeacherRequest> {
             teacherRepository.save(teacher);
             return teacherMapper.teacherEntityToTeacherResponse(teacher);
         } else {
-            throw new ObjectAlreadyExistException();
+            throw new ObjectAlreadyExistException(EXIST.getExceptionMessage());
         }
     }
 
@@ -72,7 +74,7 @@ public class TeacherServiceImpl implements TeacherService<TeacherRequest> {
             teacherRepository.save(teacher);
             return teacherMapper.teacherEntityToTeacherResponse(teacher);
         } else {
-            throw new ObjectNotFoundException();
+            throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
         }
 
     }

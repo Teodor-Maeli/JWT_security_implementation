@@ -3,8 +3,8 @@ package com.example.monolith.controllers;
 import com.example.monolith.dto.teacherDto.TeacherRequest;
 import com.example.monolith.dto.teacherDto.TeacherResponse;
 
-import com.example.monolith.utility.exceptions.ObjectAlreadyExistException;
-import com.example.monolith.utility.exceptions.ObjectNotFoundException;
+import com.example.monolith.utility.ResponseStatusException.ObjectAlreadyExistException;
+import com.example.monolith.utility.ResponseStatusException.ObjectNotFoundException;
 import com.example.monolith.services.impl.TeacherServiceImpl;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
