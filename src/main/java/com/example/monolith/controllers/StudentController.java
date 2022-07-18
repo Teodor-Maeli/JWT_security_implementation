@@ -4,7 +4,6 @@ import com.example.monolith.dto.studentDto.StudentRequest;
 import com.example.monolith.dto.studentDto.StudentResponse;
 import com.example.monolith.services.impl.StudentServiceImpl;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 

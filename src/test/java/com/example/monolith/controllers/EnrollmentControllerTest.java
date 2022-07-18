@@ -204,7 +204,7 @@ class EnrollmentControllerTest {
                         .param("username", "test")
                         .param("password", "test")
                         .with(csrf()))
-                .andExpect(status().isNotFound())
+                .andExpect(status().isConflict())
                 .andDo(print());
     }
 
@@ -228,7 +228,7 @@ class EnrollmentControllerTest {
                         .param("username", "test")
                         .param("password", "test")
                         .with(csrf()))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isConflict());
     }
 
 

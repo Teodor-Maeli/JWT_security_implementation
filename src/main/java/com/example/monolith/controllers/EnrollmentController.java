@@ -28,13 +28,7 @@ public class EnrollmentController {
     @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
     @GetMapping(value = "/{id}")
     public List<EnrollmentResponse> getEnrollment(@PathVariable Long id) {
-        try {
             return enrollmentService.getAllByStudent(id);
-        } catch (EmptyDatabaseException e) {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT,e.getMessage());
-        } catch (StudentNotAssignedException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
-        }
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
@@ -47,22 +41,14 @@ public class EnrollmentController {
     @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
     @DeleteMapping(value = "/{cId}/{sId}")
     public EnrollmentResponse delete(@PathVariable Long cId, @PathVariable Long sId) {
-        try {
             return enrollmentService.delete(cId, sId);
-        } catch (StudentNotAssignedException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
-        }
     }
 
 
     @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
     @PostMapping(value = "/{cId}/{sId}")
     public EnrollmentResponse enroll(@PathVariable Long sId, @PathVariable Long cId) {
-        try {
             return enrollmentService.enroll(sId, cId);
-        } catch (ObjectNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
-        }
     }
 
 
