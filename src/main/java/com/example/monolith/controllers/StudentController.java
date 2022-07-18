@@ -18,7 +18,7 @@ public class StudentController {
     StudentServiceImpl studentService;
 
     @SneakyThrows
-    @PreAuthorize("hasAnyAuthority('ADMIN','STUDENT')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
     @GetMapping(value = "/{id}")
     public StudentResponse getStudent(@PathVariable Long id) {
         return studentService.get(id);

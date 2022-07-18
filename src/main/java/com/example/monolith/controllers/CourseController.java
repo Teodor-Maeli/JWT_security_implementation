@@ -20,14 +20,15 @@ public class CourseController {
     CourseServiceImpl courseService;
 
 
-    @PreAuthorize("isAuthenticated()")
+
+    @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER','STUDENT')")
     @GetMapping(value = "/{id}")
     public CourseResponse getCourse(@PathVariable Long id) {
         return courseService.get(id);
     }
 
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER','STUDENT')")
     @GetMapping
     public List<CourseResponse> getAll() {
         return courseService.getAll();
