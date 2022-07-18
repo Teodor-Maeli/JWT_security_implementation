@@ -38,7 +38,7 @@ public class StudentController {
     }
 
 
-    @PreAuthorize("hasAnyRoles('ROLE_ADMIN','ROLE_TEACHER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
     @PostMapping
     public StudentResponse save(@RequestBody StudentRequest student) {
         return studentService.save(student);
