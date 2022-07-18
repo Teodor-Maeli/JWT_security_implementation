@@ -11,4 +11,5 @@ public abstract class BaseMapper {
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder(10);
     }
+
 }

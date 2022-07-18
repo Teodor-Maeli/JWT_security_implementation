@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.example.monolith.utility.enums.ExceptionMessage.*;
 
@@ -35,7 +36,9 @@ public class TeacherServiceImpl implements TeacherService<TeacherRequest> {
 
     @Override
     public List<TeacherResponse> getAll() throws EmptyDatabaseException {
-        List<Teacher> teachers = teacherRepository.findAll();
+        List<Teacher> teachers = teacherRepository.findAll().stream()
+                .filter(teacher -> !teacher.getUserName().equals("admin"))
+                .collect(Collectors.toList());
         if (teachers.size() != 0) {
             return teacherMapper.AllEntityToAllResponse(teachers);
         } else {

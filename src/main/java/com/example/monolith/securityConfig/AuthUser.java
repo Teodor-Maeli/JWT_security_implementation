@@ -1,6 +1,5 @@
 package com.example.monolith.securityConfig;
 
-import com.example.monolith.entity.AdminEntity;
 import com.example.monolith.entity.Student;
 import com.example.monolith.entity.Teacher;
 import lombok.*;
@@ -29,20 +28,6 @@ public class AuthUser implements UserDetails {
 
     private boolean isEnabled;
     private Set<GrantedAuthority> authorities;
-
-    public AuthUser(AdminEntity user){
-        this.userName = user.getUserName();
-        this.password = user.getPassword();
-        this.active = user.isActive();
-        this.isAccountNonExpired = user.isAccountNonExpired();
-        this.isAccountNonLocked = user.isAccountNonLocked();
-        this.isCredentialsNonExpired = user.isCredentialsNonExpired();
-        this.isEnabled = user.isEnabled();
-        this.authorities = Arrays.stream(user.getRole().split(","))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toSet());
-
-    }
 
     public AuthUser(Student user) {
         this.userName = user.getUserName();

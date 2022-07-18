@@ -17,6 +17,8 @@ import static com.example.monolith.utility.enums.Authorities.STUDENT;
 public class StudentMapperImpl extends BaseMapper implements StudentMapper<Student,StudentRequest> {
 
 
+
+
     @Override
     public StudentResponse studentEntityToStudentResponse(Student student) {
         return StudentResponse.builder()
@@ -36,19 +38,19 @@ public class StudentMapperImpl extends BaseMapper implements StudentMapper<Stude
     @Override
     public Student
     studentRequestToStudentEntity(StudentRequest student) {
-        return Student.builder()
-                .age(student.getAge())
-                .enrollments(student.getEnrollments())
-                .name(student.getName())
-                .userName(student.getUsername())
-                .password(passwordEncoder().encode(student.getPassword()))
-                .roles(STUDENT.name())
-                .active(true)
-                .isAccountNonExpired(true)
-                .isAccountNonLocked(true)
-                .isCredentialsNonExpired(true)
-                .isEnabled(true)
-                .build();
+            return Student.builder()
+                    .age(student.getAge())
+                    .enrollments(student.getEnrollments())
+                    .name(student.getName())
+                    .userName(student.getUsername())
+                    .password(passwordEncoder().encode(student.getPassword()))
+                    .roles(STUDENT.name())
+                    .active(true)
+                    .isAccountNonExpired(true)
+                    .isAccountNonLocked(true)
+                    .isCredentialsNonExpired(true)
+                    .isEnabled(true)
+                    .build();
     }
 
 

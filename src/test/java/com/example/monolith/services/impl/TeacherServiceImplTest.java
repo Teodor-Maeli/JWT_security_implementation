@@ -26,7 +26,7 @@ class TeacherServiceImplTest {
     TeacherRepository teacherRepository;
     TeacherServiceImpl teacherService;
 
-    TeacherMapperImpl teacherMapper = new TeacherMapperImpl();
+    TeacherMapperImpl teacherMapper = new TeacherMapperImpl(teacherRepository);
     TeacherRequest request;
     Teacher teacher;
 

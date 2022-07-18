@@ -1,20 +1,16 @@
 package com.example.monolith.services.impl;
 
-import com.example.monolith.dto.userDto.AdminRequest;
 import com.example.monolith.services.UserService;
 import com.example.monolith.dto.studentDto.StudentRequest;
 import com.example.monolith.dto.teacherDto.TeacherRequest;
-import com.example.monolith.entity.AdminEntity;
 import com.example.monolith.entity.Student;
 import com.example.monolith.entity.Teacher;
 import com.example.monolith.utility.enums.ExceptionMessage;
 import com.example.monolith.utility.Exceptions.ObjectAlreadyExistException;
-import com.example.monolith.mapper.Impl.AdminMapper;
 import com.example.monolith.mapper.Impl.StudentMapperImpl;
 import com.example.monolith.mapper.Impl.TeacherMapperImpl;
 import com.example.monolith.repository.StudentRepository;
 import com.example.monolith.repository.TeacherRepository;
-import com.example.monolith.repository.UserRepository;
 import com.example.monolith.securityConfig.AuthUser;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,16 +24,15 @@ import static com.example.monolith.utility.enums.ExceptionMessage.ALREADY_REGIST
 
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements UserDetailsService, UserService<AdminRequest,StudentRequest,TeacherRequest> {
+public class UserServiceImpl implements UserDetailsService, UserService<StudentRequest,TeacherRequest> {
 
     private final StudentRepository studentRepository;
     private final TeacherRepository teacherRepository;
-    private final UserRepository userRepository;
 
     private final StudentMapperImpl studentMapper;
 
     private final TeacherMapperImpl teacherMapper;
-    private final AdminMapper userMapper;
+
 
 
     @Override
@@ -49,24 +44,12 @@ public class UserServiceImpl implements UserDetailsService, UserService<AdminReq
         } else if (teacherRepository.existsByUserName(username)) {
             Optional<Teacher> user = Optional.of(teacherRepository.findByUserName(username).get());
             return user.map(AuthUser::new).get();
-        } else if (userRepository.existsByUserName(username)) {
-            Optional<AdminEntity> user = Optional.of(userRepository.findByUserName(username).get());
-            return user.map(AuthUser::new).get();
         } else {
             throw new UsernameNotFoundException(ExceptionMessage.NOT_REGISTERED.getExceptionMessage());
         }
     }
 
 
-    public String createUser(AdminRequest createUserRequest) throws ObjectAlreadyExistException {
-        AdminEntity user = userMapper.createRequestToEntity(createUserRequest);
-        if (!userRepository.existsByUserName(user.getUserName())) {
-            userRepository.save(user);
-            return user.getUserName();
-        } else {
-            throw new ObjectAlreadyExistException(ALREADY_REGISTERED.getExceptionMessage());
-        }
-    }
 
     public String createStudentAccount(StudentRequest student) throws ObjectAlreadyExistException {
         Student user = studentMapper.studentRequestToStudentEntity(student);
