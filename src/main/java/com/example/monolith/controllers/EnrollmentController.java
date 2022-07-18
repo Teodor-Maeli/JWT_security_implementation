@@ -3,9 +3,14 @@ package com.example.monolith.controllers;
 
 import com.example.monolith.dto.enrollmentDto.EnrollmentResponse;
 import com.example.monolith.services.impl.EnrollmentServiceImpl;
+import com.example.monolith.utility.Exceptions.EmptyDatabaseException;
+import com.example.monolith.utility.Exceptions.ObjectNotFoundException;
+import com.example.monolith.utility.Exceptions.StudentNotAssignedException;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 
 import java.util.List;
@@ -23,7 +28,13 @@ public class EnrollmentController {
     @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
     @GetMapping(value = "/{id}")
     public List<EnrollmentResponse> getEnrollment(@PathVariable Long id) {
-        return enrollmentService.getAllByStudent(id);
+        try {
+            return enrollmentService.getAllByStudent(id);
+        } catch (EmptyDatabaseException e) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT,e.getMessage());
+        } catch (StudentNotAssignedException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
+        }
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
@@ -36,14 +47,22 @@ public class EnrollmentController {
     @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
     @DeleteMapping(value = "/{cId}/{sId}")
     public EnrollmentResponse delete(@PathVariable Long cId, @PathVariable Long sId) {
-        return enrollmentService.delete(cId, sId);
+        try {
+            return enrollmentService.delete(cId, sId);
+        } catch (StudentNotAssignedException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
+        }
     }
 
 
     @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
     @PostMapping(value = "/{cId}/{sId}")
     public EnrollmentResponse enroll(@PathVariable Long sId, @PathVariable Long cId) {
-        return enrollmentService.enroll(sId, cId);
+        try {
+            return enrollmentService.enroll(sId, cId);
+        } catch (ObjectNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
+        }
     }
 
 
@@ -51,7 +70,7 @@ public class EnrollmentController {
     @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
     @GetMapping(value = "/{cId}/{sId}")
     public EnrollmentResponse getByCourseAndStudent(@PathVariable Long cId, @PathVariable Long sId) {
-        return enrollmentService.getByCourseAndStudent(cId, sId);
+            return enrollmentService.getByCourseAndStudent(cId, sId);
     }
 
 

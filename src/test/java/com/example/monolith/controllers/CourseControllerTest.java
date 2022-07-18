@@ -3,8 +3,8 @@ package com.example.monolith.controllers;
 import com.example.monolith.dto.courseDto.CourseRequest;
 import com.example.monolith.dto.courseDto.CourseResponse;
 import com.example.monolith.entity.Teacher;
-import com.example.monolith.utility.ResponseStatusException.ObjectAlreadyExistException;
-import com.example.monolith.utility.ResponseStatusException.ObjectNotFoundException;
+import com.example.monolith.utility.Exceptions.ObjectAlreadyExistException;
+import com.example.monolith.utility.Exceptions.ObjectNotFoundException;
 import com.example.monolith.services.impl.CourseServiceImpl;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
@@ -144,7 +144,7 @@ class CourseControllerTest {
     void assignTeacher() throws Exception {
 
         when(courseService.assignTeacher(1L, 2L)).thenReturn(courseResponse);
-        mockMvc.perform(patch("/courses/1/2")
+        mockMvc.perform(patch("/courses/assign/1/2")
                         .param("username", "test")
                         .param("password", "test")
                         .with(csrf()))
@@ -210,7 +210,7 @@ class CourseControllerTest {
                         .param("username", "test")
                         .param("password", "test")
                         .with(csrf()))
-                .andExpect(status().isNotAcceptable())
+                .andExpect(status().isNotFound())
                 .andDo(print());
     }
 

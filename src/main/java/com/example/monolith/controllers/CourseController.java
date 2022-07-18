@@ -5,7 +5,6 @@ import com.example.monolith.dto.courseDto.CourseRequest;
 import com.example.monolith.dto.courseDto.CourseResponse;
 import com.example.monolith.services.impl.CourseServiceImpl;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +20,7 @@ public class CourseController {
 
 
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER','STUDENT')")
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "/{id}")
     public CourseResponse getCourse(@PathVariable Long id) {
         return courseService.get(id);
@@ -52,7 +51,7 @@ public class CourseController {
 
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @PostMapping(value = "/assign/{cId}/{tId}")
+    @PatchMapping(value = "/assign/{cId}/{tId}")
     public CourseResponse assignTeacher(@PathVariable Long cId, @PathVariable Long tId) {
         return courseService.assignTeacher(cId, tId);
     }

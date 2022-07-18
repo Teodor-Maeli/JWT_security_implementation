@@ -5,10 +5,10 @@ import com.example.monolith.dto.enrollmentDto.EnrollmentResponse;
 import com.example.monolith.entity.Course;
 import com.example.monolith.entity.Student;
 
-import com.example.monolith.utility.ResponseStatusException.EmptyDatabaseException;
-import com.example.monolith.utility.ResponseStatusException.InvalidGradeException;
-import com.example.monolith.utility.ResponseStatusException.ObjectNotFoundException;
-import com.example.monolith.utility.ResponseStatusException.StudentNotAssignedException;
+import com.example.monolith.utility.Exceptions.EmptyDatabaseException;
+import com.example.monolith.utility.Exceptions.InvalidGradeException;
+import com.example.monolith.utility.Exceptions.ObjectNotFoundException;
+import com.example.monolith.utility.Exceptions.StudentNotAssignedException;
 import com.example.monolith.services.impl.EnrollmentServiceImpl;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
@@ -204,7 +204,8 @@ class EnrollmentControllerTest {
                         .param("username", "test")
                         .param("password", "test")
                         .with(csrf()))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound())
+                .andDo(print());
     }
 
     @Test
@@ -215,7 +216,8 @@ class EnrollmentControllerTest {
                         .param("username", "test")
                         .param("password", "test")
                         .with(csrf()))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNoContent())
+                .andDo(print());
     }
 
     @Test
@@ -226,7 +228,7 @@ class EnrollmentControllerTest {
                         .param("username", "test")
                         .param("password", "test")
                         .with(csrf()))
-                .andExpect(status().isExpectationFailed());
+                .andExpect(status().isNotFound());
     }
 
 
@@ -249,7 +251,7 @@ class EnrollmentControllerTest {
                         .param("username", "test")
                         .param("password", "test")
                         .with(csrf()))
-                .andExpect(status().isConflict());
+                .andExpect(status().isNotAcceptable());
     }
 
     @Test
@@ -260,7 +262,8 @@ class EnrollmentControllerTest {
                         .param("username", "test")
                         .param("password", "test")
                         .with(csrf()))
-                .andExpect(status().isExpectationFailed());
+                .andExpect(status().isConflict())
+                .andDo(print());
     }
 
     @Test
@@ -271,7 +274,8 @@ class EnrollmentControllerTest {
                         .param("username", "test")
                         .param("password", "test")
                         .with(csrf()))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNoContent())
+                .andDo(print());
     }
 
     @Test
@@ -282,7 +286,7 @@ class EnrollmentControllerTest {
                         .param("username", "test")
                         .param("password", "test")
                         .with(csrf()))
-                .andExpect(status().isConflict());
+                .andExpect(status().isNotAcceptable());
     }
 
     @Test
@@ -293,7 +297,8 @@ class EnrollmentControllerTest {
                         .param("username", "test")
                         .param("password", "test")
                         .with(csrf()))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNoContent())
+                .andDo(print());
     }
 
     @Test
@@ -304,7 +309,7 @@ class EnrollmentControllerTest {
                         .param("username", "test")
                         .param("password", "test")
                         .with(csrf()))
-                .andExpect(status().isConflict());
+                .andExpect(status().isNotAcceptable());
     }
 
 

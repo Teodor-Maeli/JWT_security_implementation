@@ -6,11 +6,14 @@ import com.example.monolith.dto.teacherDto.TeacherResponse;
 import com.example.monolith.services.impl.CourseServiceImpl;
 import com.example.monolith.services.impl.StudentServiceImpl;
 import com.example.monolith.services.impl.TeacherServiceImpl;
+import com.example.monolith.utility.Exceptions.EmptyDatabaseException;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 
 import java.util.List;
@@ -38,7 +41,8 @@ public class tablesController {
     @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
     @GetMapping("/show/teachers")
     public String teacherTable(Model model) {
-        List<TeacherResponse> teachers = teacherService.getAll();
+        List<TeacherResponse> teachers = null;
+            teachers = teacherService.getAll();
         model.addAttribute("teachers", teachers);
         return "/teachers/teachers.html";
     }
@@ -47,7 +51,8 @@ public class tablesController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/show/courses")
     public String coursesTable(Model model) {
-        List<CourseResponse> courses = courseService.getAll();
+        List<CourseResponse> courses = null;
+            courses = courseService.getAll();
         model.addAttribute("courses", courses);
         return "/courses/courses.html";
     }

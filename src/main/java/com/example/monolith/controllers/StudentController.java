@@ -17,7 +17,6 @@ public class StudentController {
 
     StudentServiceImpl studentService;
 
-    @SneakyThrows
     @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
     @GetMapping(value = "/{id}")
     public StudentResponse getStudent(@PathVariable Long id) {
@@ -34,7 +33,7 @@ public class StudentController {
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping(value = "/{id}")
     public StudentResponse delete(@PathVariable Long id) {
-        return studentService.delete(id);
+            return studentService.delete(id);
     }
 
 

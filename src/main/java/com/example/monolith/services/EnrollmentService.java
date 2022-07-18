@@ -2,10 +2,10 @@ package com.example.monolith.services;
 
 import com.example.monolith.dto.enrollmentDto.EnrollmentResponse;
 import com.example.monolith.entity.Enrollment;
-import com.example.monolith.utility.ResponseStatusException.EmptyDatabaseException;
-import com.example.monolith.utility.ResponseStatusException.InvalidGradeException;
-import com.example.monolith.utility.ResponseStatusException.ObjectNotFoundException;
-import com.example.monolith.utility.ResponseStatusException.StudentNotAssignedException;
+import com.example.monolith.utility.Exceptions.EmptyDatabaseException;
+import com.example.monolith.utility.Exceptions.InvalidGradeException;
+import com.example.monolith.utility.Exceptions.ObjectNotFoundException;
+import com.example.monolith.utility.Exceptions.StudentNotAssignedException;
 
 import java.util.List;
 import java.util.TreeMap;

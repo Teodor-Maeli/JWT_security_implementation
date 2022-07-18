@@ -5,7 +5,6 @@ import com.example.monolith.dto.studentDto.StudentRequest;
 import com.example.monolith.dto.teacherDto.TeacherRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @AllArgsConstructor
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class basicPagesController {
 
     UserServiceImpl userService;

@@ -8,7 +8,7 @@ import com.example.monolith.entity.AdminEntity;
 import com.example.monolith.entity.Student;
 import com.example.monolith.entity.Teacher;
 import com.example.monolith.utility.enums.ExceptionMessage;
-import com.example.monolith.utility.ResponseStatusException.ObjectAlreadyExistException;
+import com.example.monolith.utility.Exceptions.ObjectAlreadyExistException;
 import com.example.monolith.mapper.Impl.AdminMapper;
 import com.example.monolith.mapper.Impl.StudentMapperImpl;
 import com.example.monolith.mapper.Impl.TeacherMapperImpl;
