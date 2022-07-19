@@ -1,7 +1,6 @@
 package com.example.monolith.utility.ExceptionHandler;
 
 import com.example.monolith.utility.Exceptions.InvalidGradeException;
-import com.example.monolith.utility.Exceptions.StudentNotAssignedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,14 +13,14 @@ public class InvalidGradeHandler {
 
 
     @ExceptionHandler(value = {InvalidGradeException.class})
-    public ResponseEntity<ResponsePayload> handleInvalidGrades(InvalidGradeException ex) {
-        ResponsePayload payload = new ResponsePayload();
+    public ResponseEntity<ErrorMessage> handleInvalidGrades(InvalidGradeException ex) {
+        ErrorMessage errorMessage = new ErrorMessage();
 
-        payload.setMessage(ex.getMessage());
-        payload.setTimeStamp(LocalDateTime.now());
-        payload.setStatus(HttpStatus.NOT_ACCEPTABLE);
+        errorMessage.setMessage(ex.getMessage());
+        errorMessage.setTimeStamp(LocalDateTime.now());
+        errorMessage.setStatus(HttpStatus.NOT_ACCEPTABLE);
 
-        return new ResponseEntity<>(payload, payload.getStatus());
+        return new ResponseEntity<>(errorMessage, errorMessage.getStatus());
 
     }
 }

@@ -13,14 +13,14 @@ public class ObjectNotFoundHandler {
 
 
     @ExceptionHandler(value = {ObjectNotFoundException.class})
-    public ResponseEntity<ResponsePayload> handleObjectNotFound(ObjectNotFoundException ex) {
-        ResponsePayload payload = new ResponsePayload();
+    public ResponseEntity<ErrorMessage> handleObjectNotFound(ObjectNotFoundException ex) {
+        ErrorMessage errorMessage = new ErrorMessage();
 
-        payload.setMessage(ex.getMessage());
-        payload.setTimeStamp(LocalDateTime.now());
-        payload.setStatus(HttpStatus.NOT_FOUND);
+        errorMessage.setMessage(ex.getMessage());
+        errorMessage.setTimeStamp(LocalDateTime.now());
+        errorMessage.setStatus(HttpStatus.NOT_FOUND);
 
-        return new ResponseEntity<>(payload, payload.getStatus());
+        return new ResponseEntity<>(errorMessage, errorMessage.getStatus());
 
     }
 }

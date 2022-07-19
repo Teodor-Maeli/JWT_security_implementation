@@ -13,14 +13,14 @@ public class ObjectAlreadyExistHandler {
 
 
     @ExceptionHandler(value = {ObjectAlreadyExistException.class})
-    public ResponseEntity<ResponsePayload> handleStudentNotAssigned(ObjectAlreadyExistException ex) {
-        ResponsePayload payload = new ResponsePayload();
+    public ResponseEntity<ErrorMessage> handleStudentNotAssigned(ObjectAlreadyExistException ex) {
+        ErrorMessage errorMessage = new ErrorMessage();
 
-        payload.setMessage(ex.getMessage());
-        payload.setTimeStamp(LocalDateTime.now());
-        payload.setStatus(HttpStatus.NOT_ACCEPTABLE);
+        errorMessage.setMessage(ex.getMessage());
+        errorMessage.setTimeStamp(LocalDateTime.now());
+        errorMessage.setStatus(HttpStatus.NOT_ACCEPTABLE);
 
-        return new ResponseEntity<>(payload, payload.getStatus());
+        return new ResponseEntity<>(errorMessage, errorMessage.getStatus());
 
     }
 }

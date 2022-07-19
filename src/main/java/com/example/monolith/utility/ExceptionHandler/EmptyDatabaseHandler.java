@@ -13,14 +13,14 @@ public class EmptyDatabaseHandler {
 
 
     @ExceptionHandler(value = {EmptyDatabaseException.class})
-    public ResponseEntity<ResponsePayload> handleEmptyDatabase(EmptyDatabaseException ex) {
-        ResponsePayload payload = new ResponsePayload();
+    public ResponseEntity<ErrorMessage> handleEmptyDatabase(EmptyDatabaseException ex) {
+        ErrorMessage errorMessage = new ErrorMessage();
 
-        payload.setMessage(ex.getMessage());
-        payload.setTimeStamp(LocalDateTime.now());
-        payload.setStatus(HttpStatus.NO_CONTENT);
+        errorMessage.setMessage(ex.getMessage());
+        errorMessage.setTimeStamp(LocalDateTime.now());
+        errorMessage.setStatus(HttpStatus.NO_CONTENT);
 
-        return new ResponseEntity<>(payload, payload.getStatus());
+        return new ResponseEntity<>(errorMessage, errorMessage.getStatus());
 
     }
 }

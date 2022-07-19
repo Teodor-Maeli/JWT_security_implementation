@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Data
 @RequiredArgsConstructor
-public class ResponsePayload {
+public class ErrorMessage {
     private LocalDateTime timeStamp;
     private HttpStatus status;
     private String message;

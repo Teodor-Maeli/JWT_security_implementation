@@ -13,14 +13,14 @@ public class StudentNotAssignedHandler {
 
 
         @ExceptionHandler(value={StudentNotAssignedException.class})
-    public ResponseEntity<ResponsePayload> handleStudentNotAssigned(StudentNotAssignedException ex){
-            ResponsePayload payload = new ResponsePayload();
+    public ResponseEntity<ErrorMessage> handleStudentNotAssigned(StudentNotAssignedException ex){
+            ErrorMessage errorMessage = new ErrorMessage();
 
-            payload.setMessage(ex.getMessage());
-            payload.setTimeStamp(LocalDateTime.now());
-            payload.setStatus(HttpStatus.CONFLICT);
+            errorMessage.setMessage(ex.getMessage());
+            errorMessage.setTimeStamp(LocalDateTime.now());
+            errorMessage.setStatus(HttpStatus.CONFLICT);
 
-            return new ResponseEntity<>(payload,payload.getStatus());
+            return new ResponseEntity<>(errorMessage,errorMessage.getStatus());
 
         }
 
