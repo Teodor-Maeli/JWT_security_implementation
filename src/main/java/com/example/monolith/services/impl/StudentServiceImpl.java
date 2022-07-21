@@ -34,9 +34,7 @@ public class StudentServiceImpl implements StudentService<StudentRequest> {
         if (studentRepository.existsById(id)) {
             Student student = studentRepository.findById(id).get();
             return studentMapper.studentEntityToStudentResponse(student);
-        } else {
-            throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
-        }
+        } else throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
 
     }
 
@@ -52,9 +50,7 @@ public class StudentServiceImpl implements StudentService<StudentRequest> {
             Student student = studentRepository.findById(id).get();
             studentRepository.delete(student);
             return studentMapper.studentEntityToStudentResponse(student);
-        } else {
-            throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
-        }
+        } else throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
     }
 
     @Override
@@ -63,9 +59,7 @@ public class StudentServiceImpl implements StudentService<StudentRequest> {
         if (!studentRepository.existsByAgeAndName(request.getAge(), request.getName())) {
             studentRepository.save(student);
             return studentMapper.studentEntityToStudentResponse(student);
-        } else {
-            throw new ObjectAlreadyExistException(EXIST.getExceptionMessage());
-        }
+        } else throw new ObjectAlreadyExistException(EXIST.getExceptionMessage());
     }
 
 }

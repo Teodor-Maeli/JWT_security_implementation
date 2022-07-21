@@ -2,6 +2,7 @@ package com.example.monolith.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,7 +25,9 @@ public class Student implements Serializable {
     private String name;
     private int age;
     @Column(unique = true)
+    @NotNull
     private String userName;
+    @NotNull
     private String password;
     private String roles;
     private boolean active;

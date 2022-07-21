@@ -29,9 +29,7 @@ public class TeacherServiceImpl implements TeacherService<TeacherRequest> {
         if (teacherRepository.existsById(id)) {
             Teacher teacher = teacherRepository.findById(id).get();
             return teacherMapper.teacherEntityToTeacherResponse(teacher);
-        } else {
-            throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
-        }
+        } else throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
     }
 
     @Override
@@ -41,9 +39,7 @@ public class TeacherServiceImpl implements TeacherService<TeacherRequest> {
                 .collect(Collectors.toList());
         if (teachers.size() != 0) {
             return teacherMapper.AllEntityToAllResponse(teachers);
-        } else {
-            throw new EmptyDatabaseException(EMPTY.getExceptionMessage());
-        }
+        } else throw new EmptyDatabaseException(EMPTY.getExceptionMessage());
     }
 
     @Override
@@ -52,9 +48,7 @@ public class TeacherServiceImpl implements TeacherService<TeacherRequest> {
             Teacher teacher = teacherRepository.findById(id).get();
             teacherRepository.delete(teacher);
             return teacherMapper.teacherEntityToTeacherResponse(teacher);
-        } else {
-            throw new ObjectNotFoundException(NOT_ASSIGNED.getExceptionMessage());
-        }
+        } else throw new ObjectNotFoundException(NOT_ASSIGNED.getExceptionMessage());
 
     }
 
@@ -64,9 +58,7 @@ public class TeacherServiceImpl implements TeacherService<TeacherRequest> {
         if (!teacherRepository.existsByNameAndAndDegree(request.getName(), request.getDegree())) {
             teacherRepository.save(teacher);
             return teacherMapper.teacherEntityToTeacherResponse(teacher);
-        } else {
-            throw new ObjectAlreadyExistException(EXIST.getExceptionMessage());
-        }
+        } else throw new ObjectAlreadyExistException(EXIST.getExceptionMessage());
     }
 
     @Override
@@ -76,9 +68,7 @@ public class TeacherServiceImpl implements TeacherService<TeacherRequest> {
             teacher.setDegree(degree);
             teacherRepository.save(teacher);
             return teacherMapper.teacherEntityToTeacherResponse(teacher);
-        } else {
-            throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
-        }
+        } else throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
 
     }
 

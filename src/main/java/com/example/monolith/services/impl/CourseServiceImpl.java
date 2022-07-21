@@ -33,9 +33,7 @@ public class CourseServiceImpl implements CourseService<CourseRequest> {
         if (courseRepository.existsById(courseId)) {
             Course response = courseRepository.findById(courseId).get();
             return courseMapper.courseEntityToCourseResponse(response);
-        } else {
-            throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
-        }
+        } else throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
 
     }
 
@@ -44,9 +42,7 @@ public class CourseServiceImpl implements CourseService<CourseRequest> {
         List<Course> responseList = courseRepository.findAll();
         if(!responseList.isEmpty()) {
             return courseMapper.allEntityToAllResponse(responseList);
-        }else{
-            throw new EmptyDatabaseException(EMPTY.getExceptionMessage());
-        }
+        }else throw new EmptyDatabaseException(EMPTY.getExceptionMessage());
     }
 
     @Override
@@ -55,9 +51,7 @@ public class CourseServiceImpl implements CourseService<CourseRequest> {
             Course course = courseRepository.findById(id).get();
             courseRepository.delete(course);
             return courseMapper.courseEntityToCourseResponse(course);
-        } else {
-            throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
-        }
+        } else throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
 
     }
 
@@ -68,9 +62,7 @@ public class CourseServiceImpl implements CourseService<CourseRequest> {
         if (!courseRepository.existsByName(request.getName())) {
             courseRepository.save(course);
             return courseMapper.courseEntityToCourseResponse(course);
-        } else {
-            throw new ObjectAlreadyExistException(EXIST.getExceptionMessage());
-        }
+        } else throw new ObjectAlreadyExistException(EXIST.getExceptionMessage());
     }
 
     @Override

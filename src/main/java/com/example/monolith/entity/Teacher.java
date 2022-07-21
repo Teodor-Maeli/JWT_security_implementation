@@ -1,5 +1,6 @@
 package com.example.monolith.entity;
 
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,7 +23,9 @@ public class Teacher implements Serializable {
     private String degree;
     private int age;
     @Column(unique = true)
+    @NotNull
     private String userName;
+    @NotNull
     private String password;
     private String roles;
     private boolean active;

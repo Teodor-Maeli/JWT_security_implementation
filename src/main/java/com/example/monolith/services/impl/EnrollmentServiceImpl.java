@@ -35,9 +35,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
                 ()->new EmptyDatabaseException(EMPTY.getExceptionMessage()));
         if (!enrollment.isEmpty()) {
             return enrollmentMapper.AllEnrollmentsToAllResponse(enrollment);
-        } else {
-            throw new StudentNotAssignedException(NOT_ASSIGNED.getExceptionMessage());
-        }
+        } else throw new StudentNotAssignedException(NOT_ASSIGNED.getExceptionMessage());
     }
 
     @Override
@@ -60,9 +58,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
                 ()->new StudentNotAssignedException(NOT_ASSIGNED.getExceptionMessage()));
         if (grade >= 2 && grade <= 6) {
             enrollment.getGrades().add(grade);
-        } else {
-            throw new InvalidGradeException(INVALID_GRADE.getExceptionMessage());
-        }
+        } else throw new InvalidGradeException(INVALID_GRADE.getExceptionMessage());
         return enrollmentMapper.enrollmentEntityToEnrollmentResponse(enrollmentRepository.save(enrollment));
 
     }
@@ -77,9 +73,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
                     .student(studentRepository.findById(sId).get())
                     .build());
             return enrollmentMapper.enrollmentEntityToEnrollmentResponse(enrollmentRepository.save(enrollment));
-        } else {
-            throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
-        }
+        } else throw new ObjectNotFoundException(NOT_EXIST.getExceptionMessage());
     }
 
 

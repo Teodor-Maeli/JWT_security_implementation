@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 import static com.example.monolith.utility.enums.ExceptionMessage.ALREADY_REGISTERED;
+import static com.example.monolith.utility.enums.ExceptionMessage.NOT_REGISTERED;
 
 
 @Service
@@ -44,9 +45,7 @@ public class UserServiceImpl implements UserDetailsService, UserService<StudentR
         } else if (teacherRepository.existsByUserName(username)) {
             Optional<Teacher> user = Optional.of(teacherRepository.findByUserName(username).get());
             return user.map(AuthUser::new).get();
-        } else {
-            throw new UsernameNotFoundException(ExceptionMessage.NOT_REGISTERED.getExceptionMessage());
-        }
+        } else throw new UsernameNotFoundException(NOT_REGISTERED.getExceptionMessage());
     }
 
 
@@ -56,9 +55,7 @@ public class UserServiceImpl implements UserDetailsService, UserService<StudentR
         if (!studentRepository.existsByUserName(user.getUserName()) && !studentRepository.existsByName(user.getName())) {
             studentRepository.save(user);
             return user.getUserName();
-        } else {
-            throw new ObjectAlreadyExistException(ALREADY_REGISTERED.getExceptionMessage());
-        }
+        } else throw new ObjectAlreadyExistException(ALREADY_REGISTERED.getExceptionMessage());
 
     }
 
@@ -68,9 +65,7 @@ public class UserServiceImpl implements UserDetailsService, UserService<StudentR
         if (!teacherRepository.existsByUserName(user.getUserName()) && !teacherRepository.existsByName(user.getName())) {
             teacherRepository.save(user);
             return user.getUserName();
-        } else {
-            throw new ObjectAlreadyExistException(ALREADY_REGISTERED.getExceptionMessage());
-        }
+        } else throw new ObjectAlreadyExistException(ALREADY_REGISTERED.getExceptionMessage());
 
     }
 
