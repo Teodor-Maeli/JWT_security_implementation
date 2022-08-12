@@ -1,14 +1,13 @@
 package com.example.monolith.securityConfig;
 
-import com.example.monolith.entity.Student;
-import com.example.monolith.entity.Teacher;
-import lombok.*;
+import com.example.monolith.entity.Client;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-
-import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -29,31 +28,17 @@ public class AuthUser implements UserDetails {
     private boolean isEnabled;
     private Set<GrantedAuthority> authorities;
 
-    public AuthUser(Student user) {
+    public AuthUser(Client user) {
+
         this.userName = user.getUserName();
         this.password = user.getPassword();
         this.active = user.isActive();
-
         this.isAccountNonExpired = user.isAccountNonExpired();
         this.isAccountNonLocked = user.isAccountNonLocked();
         this.isCredentialsNonExpired = user.isCredentialsNonExpired();
         this.isEnabled = user.isEnabled();
-        this.authorities = Arrays.stream(user.getRoles().split(","))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toSet());
-    }
-
-    public AuthUser(Teacher user) {
-        this.userName = user.getUserName();
-        this.password = user.getPassword();
-        this.active = user.isActive();
-
-        this.isAccountNonExpired = user.isAccountNonExpired();
-        this.isAccountNonLocked = user.isAccountNonLocked();
-        this.isCredentialsNonExpired = user.isCredentialsNonExpired();
-        this.isEnabled = user.isEnabled();
-        this.authorities = Arrays.stream(user.getRoles().split(","))
-                .map(SimpleGrantedAuthority::new)
+        this.authorities = user.getRoles().stream()
+                .map(role->new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toSet());
     }
 
